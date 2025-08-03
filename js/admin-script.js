@@ -40,7 +40,12 @@ async function verifyAdminAuth() {
         
         // Verify with server if token exists
         if (token) {
-            const response = await fetch('/api/auth/verify', {
+            // Use Netlify Functions for deployed version, fallback to local API for development
+            const apiEndpoint = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+                ? '/api/auth/verify' 
+                : '/.netlify/functions/auth-verify';
+                
+            const response = await fetch(apiEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

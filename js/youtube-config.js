@@ -2,11 +2,17 @@ const YOUTUBE_CONFIG = {
     // Secure configuration - no exposed API keys
     API_KEY: '', // Removed for security - handled by backend
     CHANNEL_ID: '', // Removed for security - handled by backend
-    BASE_URL: '/api/youtube', // Use secure proxy endpoints
+    BASE_URL: (window && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) 
+        ? '/api/youtube' 
+        : '/.netlify/functions', // Use Netlify Functions for deployed version
     MAX_RESULTS: 20,
     ENDPOINTS: {
-        CHANNELS: '/channel',
-        SEARCH: '/videos',
+        CHANNELS: (window && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) 
+            ? '/channel' 
+            : '/youtube-channel',
+        SEARCH: (window && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) 
+            ? '/videos' 
+            : '/youtube-videos',
         VIDEOS: '/video'
     },
     // Fallback configuration for when API is unavailable

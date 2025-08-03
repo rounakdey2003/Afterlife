@@ -1,0 +1,38 @@
+[build]
+  command = "npm install"
+  publish = "."
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/api/auth/login"
+  to = "/.netlify/functions/auth-login"
+  status = 200
+
+[[redirects]]
+  from = "/api/auth/verify"
+  to = "/.netlify/functions/auth-verify"
+  status = 200
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+
+[[redirects]]
+  from = "/api/youtube/channel"
+  to = "/.netlify/functions/youtube-channel"
+  status = 200
+
+[[redirects]]
+  from = "/api/youtube/videos"
+  to = "/.netlify/functions/youtube-videos"
+  status = 200
+
+# Fallback for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

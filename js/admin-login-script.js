@@ -55,7 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function authenticateWithServer(password) {
         try {
-            const response = await fetch('/api/auth/login', {
+            // Use Netlify Functions for deployed version, fallback to local API for development
+            const apiEndpoint = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+                ? '/api/auth/login' 
+                : '/.netlify/functions/auth-login';
+                
+            const response = await fetch(apiEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -10,7 +10,9 @@ class StreamYouTubeAPI {
             // Fallback to secure proxy endpoints
             this.apiKey = ''; // No API key needed - handled by backend
             this.channelId = ''; // No channel ID needed - handled by backend
-            this.baseUrl = '/api/youtube'; // Secure proxy endpoint
+            this.baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
+                ? '/api/youtube' 
+                : '/.netlify/functions'; // Use Netlify Functions for deployed version
             this.maxResults = 50;
         }
         this.videosData = [];
@@ -51,7 +53,10 @@ class StreamYouTubeAPI {
 
     async loadChannelData() {
         try {
-            const response = await fetch(`${this.baseUrl}/channel`);
+            const channelEndpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
+                ? `${this.baseUrl}/channel` 
+                : `${this.baseUrl}/youtube-channel`;
+            const response = await fetch(channelEndpoint);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -71,8 +76,11 @@ class StreamYouTubeAPI {
 
     async loadVideos() {
         try {
+            const videosEndpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
+                ? `${this.baseUrl}/videos` 
+                : `${this.baseUrl}/youtube-videos`;
             const response = await fetch(
-                `${this.baseUrl}/videos?maxResults=${this.maxResults}&order=date`
+                `${videosEndpoint}?maxResults=${this.maxResults}&order=date`
             );
             
             if (!response.ok) {
