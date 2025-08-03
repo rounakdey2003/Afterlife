@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afterlife-Org</title>
+    <link rel="stylesheet" href="css/base-theme.css">
+    <link rel="stylesheet" href="css/index-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&family=Bebas+Neue:wght@400&family=Public+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo animate-glow">Afterlife</div>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading amazing content...</p>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <header class="header glass">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">Afterlife</div>
+            </div>
+            <button class="mobile-menu-btn smooth-transition" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active smooth-transition">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="stream.html" class="nav-link smooth-transition">
+                    <i class="fas fa-video"></i>
+                    Stream
+                </a>
+                <a href="tools.html" class="nav-link smooth-transition">
+                    <i class="fas fa-tools"></i>
+                    Tools
+                </a>
+                <a href="store.html" class="nav-link smooth-transition">
+                    <i class="fas fa-store"></i>
+                    Store
+                </a>
+                <a href="notice.html" class="nav-link smooth-transition">
+                    <i class="fas fa-bell"></i>
+                    Notices
+                </a>
+                <a href="blog.html" class="nav-link smooth-transition">
+                    <i class="fas fa-blog"></i>
+                    Blog
+                </a>
+                <a href="admin-login.html" class="nav-link admin-link smooth-transition">
+                    <i class="fas fa-user-shield"></i>
+                    Admin
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+    <section class="hero" role="banner" aria-label="Latest video showcase">
+        <div class="container" id="heroContent">
+            <!-- Fallback Hero Content -->
+            <div class="hero-content">
+                <h1 class="hero-title">Welcome to Afterlife</h1>
+                <p class="hero-subtitle">Your ultimate gaming community and streaming platform where legends are born and champions rise</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+                    <a href="stream.html" class="cta-button cta-primary">
+                        <i class="fas fa-play"></i>
+                        Start Streaming
+                    </a>
+                    <a href="tools.html" class="cta-button cta-secondary">
+                        <i class="fas fa-tools"></i>
+                        Youtube Tools
+                    </a>
+                    <a href="store.html" class="cta-button cta-accent">
+                        <i class="fas fa-store"></i>
+                        Visit Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <hr class="section-divider">
+    
+    <section class="trending scroll-reveal">
+        <div class="container">
+            <h2 class="section-title"><span><i class="fas fa-fire"></i> Featured Content</span></h2>
+            <div class="trending-grid gpu-accelerated" id="trendingVideos">
+                <!-- Enhanced Fallback Content -->
+                <div class="feature-card gaming-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Gaming Content</h3>
+                    <p>Discover our latest gaming streams and videos. We cover MLBB, tournaments, and gaming tutorials with professional commentary.</p>
+                    <a href="stream.html" class="cta-button cta-primary">
+                        <i class="fas fa-video"></i>
+                        Watch Streams
+                    </a>
+                </div>
+                <div class="feature-card tournament-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Epic Gaming Lobby</h3>
+                    <p>Join with the best players from around the world. Stay tuned for upcoming events and announcements!</p>
+                    <a href="notice.html" class="cta-button cta-secondary">
+                        <i class="fas fa-medal"></i>
+                        View Notice
+                    </a>
+                </div>
+                <div class="feature-card community-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Gaming Community</h3>
+                    <p>Connect with fellow gamers, share strategies, and be part of our growing gaming community with 290+ active members.</p>
+                    <a href="blog.html" class="cta-button cta-accent">
+                        <i class="fas fa-comments"></i>
+                        Join Community
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <hr class="section-divider">
+
+    <section class="channel-performance scroll-reveal">
+        <div class="container">
+            <h2 class="section-title"><span><i class="fas fa-chart-line"></i> Community Stats</span></h2>
+            <div class="performance-grid gpu-accelerated" id="performanceCards">
+                <!-- Enhanced Performance Stats -->
+                <div class="performance-card stats-members">
+                    <div class="performance-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="performance-number">290+</span>
+                    <span class="performance-label">Community Members</span>
+                </div>
+                <div class="performance-card stats-videos">
+                    <div class="performance-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <span class="performance-number">50+</span>
+                    <span class="performance-label">Gaming Videos</span>
+                </div>
+                <div class="performance-card stats-tournaments">
+                    <div class="performance-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <span class="performance-number">20+</span>
+                    <span class="performance-label">Collaborations</span>
+                </div>
+                <div class="performance-card stats-support">
+                    <div class="performance-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <span class="performance-number">10+</span>
+                    <span class="performance-label">Giveaways</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <hr class="section-divider">
+    
+    <section class="features-showcase scroll-reveal">
+        <div class="container">
+            <h2 class="section-title"><span><i class="fas fa-star"></i> Why Choose Afterlife</span></h2>
+            <div class="features-grid">
+                <div class="feature-highlight">
+                    <div class="feature-number">01</div>
+                    <h3>Pro Gaming Tools</h3>
+                    <p>Access professional-grade gaming tools including analytics, performance tracking, and optimization utilities.</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-number">02</div>
+                    <h3>Live Streaming</h3>
+                    <p>Stream your gameplay with our integrated streaming platform and connect with your audience in real-time.</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-number">03</div>
+                    <h3>Exclusive Store</h3>
+                    <p>Shop for gaming gear, merchandise, and exclusive items available only to our community members.</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-number">04</div>
+                    <h3>Tournament System</h3>
+                    <p>Participate in organized tournaments with prizes, rankings, and recognition for top performers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <section class="channel-info" id="channelInfo" style="display: none;">
+        <div class="container">
+            <div class="channel-card">
+                <div class="channel-avatar">
+                    <img id="channelThumbnail" src="" alt="Channel Avatar">
+                </div>
+                <div class="channel-details">
+                    <h3 id="channelTitle"></h3>
+                    <p id="channelDescription"></p>
+                    <div class="channel-stats">
+                        <span id="channelSubscribers"></span>
+                        <span id="channelVideoCount"></span>
+                        <span id="channelViewCount"></span>
+                    </div>
+                </div>
+                <div class="channel-actions">
+                    <a id="channelLink" href="#" target="_blank" class="subscribe-channel-btn">
+                        <i class="fab fa-youtube"></i>
+                        Visit Channel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contacts">Contacts</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                        <li><a href="https://discord.gg/cqPEdtTRnH" target="_blank">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@Afterlife_AL/streams" target="_blank">Youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Afterlife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/loading-manager.js"></script>
+    <script src="js/youtube-config.js"></script>
+    <script src="js/index-script.js"></script>
+</body>
+
+</html>

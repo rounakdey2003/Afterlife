@@ -1,0 +1,323 @@
+/* Hero Filter Styles */
+.hero-filter-section {
+    margin-top: 2rem;
+}
+
+.hero-filter-section .filter-bar {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--black);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.filter-group {
+    margin-bottom: 1rem;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    border: 2px solid var(--black);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px var(--black);
+}
+
+.filter-btn.active {
+    background: var(--primary);
+    color: var(--button-text-light);
+    box-shadow: 3px 3px 0px var(--black);
+}
+
+.filter-count {
+    background: var(--hover-bg);
+    color: var(--text-primary);
+    padding: 0.1rem 0.3rem;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    margin-left: 0.3rem;
+    border: 1px solid var(--gray-400);
+}
+
+.filter-btn.active .filter-count {
+    background: var(--button-text-light);
+    color: var(--primary);
+    border: 1px solid var(--button-text-light);
+}
+
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.search-group {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    border: 2px solid var(--black);
+    border-radius: 6px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.input-group-addon {
+    position: absolute;
+    right: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.filter-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.form-select {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    min-width: 140px;
+    border: 2px solid var(--black);
+    border-radius: 6px;
+    background: var(--white);
+    color: var(--text-primary);
+}
+
+.view-toggle {
+    display: flex;
+    border: 2px solid var(--black);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.view-btn {
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-btn.active {
+    background: var(--primary);
+    color: var(--button-text-light);
+}
+
+.view-btn:not(.active):hover {
+    background: var(--hover-bg);
+}
+
+.btn.secondary {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    border: 2px solid var(--black);
+    border-radius: 6px;
+    background: var(--secondary);
+    color: var(--button-text-dark);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn.secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 2px 2px 0px var(--black);
+}
+
+.advanced-filters {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-300);
+}
+
+.advanced-filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-item label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.filter-item .form-select {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.875rem;
+    min-width: 120px;
+}
+
+.btn.warning {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.875rem;
+    border: 2px solid var(--black);
+    border-radius: 6px;
+    background: var(--warning);
+    color: var(--black);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn.warning:hover {
+    transform: translateY(-1px);
+    box-shadow: 2px 2px 0px var(--black);
+}
+
+.results-info {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.results-info span {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .hero-filter-section .filter-bar {
+        padding: 0.75rem;
+    }
+    
+    .filter-buttons {
+        justify-content: center;
+        gap: 0.3rem;
+    }
+    
+    .filter-btn {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .filter-controls {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+    
+    .search-group {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .filter-actions {
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    .advanced-filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    
+    .filter-item {
+        flex-direction: column;
+        gap: 0.25rem;
+        align-items: stretch;
+    }
+    
+    .filter-item .form-select {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-buttons {
+        gap: 0.25rem;
+    }
+    
+    .filter-btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.65rem;
+    }
+    
+    .filter-btn i {
+        margin-right: 0.25rem;
+    }
+    
+    /* Hide text on very small screens, keep only icons */
+    .filter-btn span:not(.filter-count) {
+        display: none;
+    }
+    
+    .hero-filter-section .filter-bar {
+        padding: 0.5rem;
+    }
+}
+
+/* Smooth animations */
+.advanced-filters {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.hero-filter-section .card {
+    transition: all 0.3s ease;
+}
+
+/* Focus states for accessibility */
+.filter-btn:focus,
+.view-btn:focus,
+.form-input:focus,
+.form-select:focus,
+.btn:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Form styling improvements */
+.form-input:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+}

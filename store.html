@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Store - Afterlife</title>
+    <link rel="stylesheet" href="css/base-theme.css">
+    <link rel="stylesheet" href="css/store-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&family=Bebas+Neue:wght@400&family=Public+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo animate-glow">Afterlife</div>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading gaming store...</p>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <header class="header glass">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">Afterlife</div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="stream.html" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    Stream
+                </a>
+                <a href="tools.html" class="nav-link">
+                    <i class="fas fa-tools"></i>
+                    Tools
+                </a>
+                <a href="store.html" class="nav-link active">
+                    <i class="fas fa-store"></i>
+                    Store
+                </a>
+                <a href="notice.html" class="nav-link">
+                    <i class="fas fa-bell"></i>
+                    Notices
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <i class="fas fa-blog"></i>
+                    Blog
+                </a>
+                <a href="admin-login.html" class="nav-link admin-link">
+                    <i class="fas fa-user-shield"></i>
+                    Admin
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Store Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title animate-slide-up">Gaming Store</h1>
+                    <p class="hero-subtitle animate-slide-up">Premium gaming gear and digital products coming soon</p>
+                    
+                    <div class="store-features animate-fade-in">
+                        <div class="feature-item glass-card">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>Gaming Gear</h3>
+                            <p>Professional gaming equipment</p>
+                        </div>
+                        <div class="feature-item glass-card">
+                            <i class="fas fa-crown"></i>
+                            <h3>Premium Passes</h3>
+                            <p>Exclusive MLBB battle passes</p>
+                        </div>
+                        <div class="feature-item glass-card">
+                            <i class="fas fa-gift"></i>
+                            <h3>Digital Items</h3>
+                            <p>In-game currencies and items</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coming Soon Section -->
+        <section id="notify" class="coming-soon-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title animate-slide-up">
+                        <span>
+                            <i class="fas fa-rocket"></i>
+                            Store Launch Timeline
+                        </span>
+                    </h2>
+                </div>
+
+                <div class="timeline-container animate-fade-in">
+                    <div class="timeline-item completed">
+                        <div class="timeline-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Planning & Research</h3>
+                            <p>Market research and product planning completed</p>
+                            <span class="timeline-date">Q4 2024</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item active">
+                        <div class="timeline-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Development Phase</h3>
+                            <p>Building the store platform and payment systems</p>
+                            <span class="timeline-date">Q1 2025</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Store Launch</h3>
+                            <p>Official launch with premium gaming products</p>
+                            <span class="timeline-date">Q2 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contacts">Contacts</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                        <li><a href="https://discord.gg/cqPEdtTRnH" target="_blank">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@Afterlife_AL/streams" target="_blank">Youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Afterlife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification System -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/loading-manager.js"></script>
+</body>
+
+</html>

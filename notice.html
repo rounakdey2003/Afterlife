@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notices & Updates - Afterlife</title>
+    <link rel="stylesheet" href="css/base-theme.css">
+    <link rel="stylesheet" href="css/notice-styles.css">
+    <link rel="stylesheet" href="css/compact-filter-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&family=Bebas+Neue:wght@400&family=Public+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo animate-glow">Afterlife</div>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading notices and updates...</p>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <header class="header glass">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">Afterlife</div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="stream.html" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    Stream
+                </a>
+                <a href="tools.html" class="nav-link">
+                    <i class="fas fa-tools"></i>
+                    Tools
+                </a>
+                <a href="store.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    Store
+                </a>
+                <a href="notice.html" class="nav-link active">
+                    <i class="fas fa-bell"></i>
+                    Notices
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <i class="fas fa-blog"></i>
+                    Blog
+                </a>
+                <a href="admin-login.html" class="nav-link admin-link">
+                    <i class="fas fa-user-shield"></i>
+                    Admin
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Notices & Updates</h1>
+                    <p class="hero-subtitle">Stay informed with the latest announcements and important information</p>
+                    
+                    <div class="performance-grid">
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalNotices">12</span>
+                            <span class="stat-label">Total Notices</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="urgentCount">2</span>
+                            <span class="stat-label">Urgent</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="todayCount">3</span>
+                            <span class="stat-label">Today</span>
+                        </div>
+                    </div>
+
+                    <!-- Compact Filter Section -->
+                    <div class="hero-filter-section">
+                        <div class="filter-bar card">
+                            <!-- Compact Category Filters -->
+                            <div class="filter-group">
+                                <div class="filter-buttons">
+                                    <span style="font-size: 0.875rem; font-weight: 600; color: var(--text-primary); margin-right: 0.5rem;">Filter:</span>
+                                    <button class="filter-btn active" data-filter="all" data-count="12">
+                                        <i class="fas fa-list"></i>
+                                        All <span class="filter-count">12</span>
+                                    </button>
+                                    <button class="filter-btn" data-filter="urgent" data-count="2">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        Urgent <span class="filter-count">2</span>
+                                    </button>
+                                    <button class="filter-btn" data-filter="important" data-count="3">
+                                        <i class="fas fa-star"></i>
+                                        Important <span class="filter-count">3</span>
+                                    </button>
+                                    <button class="filter-btn" data-filter="info" data-count="4">
+                                        <i class="fas fa-info-circle"></i>
+                                        Info <span class="filter-count">4</span>
+                                    </button>
+                                    <button class="filter-btn" data-filter="general" data-count="3">
+                                        <i class="fas fa-comments"></i>
+                                        General <span class="filter-count">3</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Compact Search and Controls -->
+                            <div class="filter-controls">
+                                <div class="search-group">
+                                    <div class="input-group">
+                                        <input type="text" id="noticeSearch" class="form-input" placeholder="Search notices..." aria-label="Search notices">
+                                        <div class="input-group-addon">
+                                            <i class="fas fa-search"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="filter-actions">
+                                    <select id="noticeSort" class="form-select">
+                                        <option value="date-desc">Newest First</option>
+                                        <option value="date-asc">Oldest First</option>
+                                        <option value="priority">Priority</option>
+                                        <option value="title">Title A-Z</option>
+                                        <option value="author">Author</option>
+                                    </select>
+
+                                    <div class="view-toggle">
+                                        <button id="gridView" class="view-btn active" aria-label="Grid view">
+                                            <i class="fas fa-th"></i>
+                                        </button>
+                                        <button id="listView" class="view-btn" aria-label="List view">
+                                            <i class="fas fa-list"></i>
+                                        </button>
+                                    </div>
+
+                                    <button id="toggleAdvanced" class="btn secondary">
+                                        <i class="fas fa-sliders-h"></i>
+                                        More
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Compact Advanced Filters -->
+                            <div class="advanced-filters" id="advancedFilters">
+                                <div class="advanced-filter-controls">
+                                    <div class="filter-item">
+                                        <label for="authorFilter">Author:</label>
+                                        <select id="authorFilter" class="form-select">
+                                            <option value="">All Authors</option>
+                                            <option value="Admin Team">Admin Team</option>
+                                            <option value="Dev Team">Dev Team</option>
+                                            <option value="Events Team">Events Team</option>
+                                            <option value="Community Team">Community Team</option>
+                                            <option value="Support Team">Support Team</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="filter-item">
+                                        <label for="dateFilter">Date:</label>
+                                        <select id="dateFilter" class="form-select">
+                                            <option value="">All Time</option>
+                                            <option value="today">Today</option>
+                                            <option value="week">This Week</option>
+                                            <option value="month">This Month</option>
+                                            <option value="quarter">Last 3 Months</option>
+                                        </select>
+                                    </div>
+
+                                    <button id="clearFilters" class="btn warning">
+                                        <i class="fas fa-times"></i>
+                                        Clear
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Compact Results Info -->
+                            <div class="results-info">
+                                <span id="resultsCount">Showing 12 of 12 notices</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notices Section -->
+        <section class="notices-section">
+            <div class="container">
+                
+                <div class="notices-grid animate-fade-in" id="noticesGrid">
+                    <!-- Notices will be loaded dynamically from localStorage by admin panel -->
+                    <div id="loadingNotices" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p>Loading notices...</p>
+                    </div>
+                </div>
+
+                <!-- No Results Message -->
+                <div id="noResults" class="no-results" style="display: none;">
+                    <div class="card" style="text-align: center; padding: 3rem;">
+                        <div class="error-icon" style="margin-bottom: 1rem;">
+                            <i class="fas fa-search" style="font-size: 3rem; color: var(--text-secondary);"></i>
+                        </div>
+                        <h3>No notices found</h3>
+                        <p>Try adjusting your filters or search terms to find what you're looking for.</p>
+                        <button class="btn primary" onclick="clearAllFilters()">
+                            <i class="fas fa-refresh"></i>
+                            Clear Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contacts">Contacts</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                        <li><a href="https://discord.gg/cqPEdtTRnH" target="_blank">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@Afterlife_AL/streams" target="_blank">Youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Afterlife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/notice-dynamic-loader.js"></script>
+    <script src="js/notice-filter.js"></script>
+    <script src="js/loading-manager.js"></script>
+    <script src="js/notice-script-simple.js"></script>
+</body>
+
+</html>

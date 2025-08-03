@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Afterlife</title>
+    <link rel="stylesheet" href="css/base-theme.css">
+    <link rel="stylesheet" href="css/admin-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&family=Bebas+Neue:wght@400&family=Public+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo animate-glow">Afterlife</div>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading Admin Panel...</p>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
+    
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">Afterlife</div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="stream.html" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    Stream
+                </a>
+                <a href="tools.html" class="nav-link">
+                    <i class="fas fa-tools"></i>
+                    Tools
+                </a>
+                <a href="store.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    Store
+                </a>
+                <a href="notice.html" class="nav-link">
+                    <i class="fas fa-bell"></i>
+                    Notices
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <i class="fas fa-blog"></i>
+                    Blog
+                </a>
+                <a href="#" class="nav-link logout-nav-link" onclick="logout()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Logout
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Admin Panel</h1>
+            <p>Manage notices and announcements for Afterlife</p>
+        </div>
+
+        <div class="admin-panel">
+            
+            <div class="admin-section">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px;">
+                        <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Create New Notice
+                </h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    Create and publish notices for the community. Select the appropriate team and notice type to ensure proper categorization.
+                </p>
+                
+                <div id="messageContainer"></div>
+                
+                <form class="notice-form" id="noticeForm">
+                    <div class="form-group">
+                        <label for="noticeTitle">Notice Title</label>
+                        <input type="text" id="noticeTitle" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="noticeType">Notice Type</label>
+                        <select id="noticeType" class="form-select" required>
+                            <option value="urgent">Urgent</option>
+                            <option value="important">Important</option>
+                            <option value="info">Info</option>
+                            <option value="general">General</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="noticeTeam">Team/Author</label>
+                        <select id="noticeTeam" class="form-select" required>
+                            <option value="">Select Team</option>
+                            <option value="Admin Team">Admin Team</option>
+                            <option value="Dev Team">Dev Team</option>
+                            <option value="Events Team">Events Team</option>
+                            <option value="Community Team">Community Team</option>
+                            <option value="Support Team">Support Team</option>
+                            <option value="Security Team">Security Team</option>
+                            <option value="Content Team">Content Team</option>
+                            <option value="Marketing Team">Marketing Team</option>
+                        </select>
+                        <small style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem; display: block;">
+                            Choose which team is publishing this notice
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="noticeContent">Notice Content</label>
+                        <textarea id="noticeContent" class="form-textarea" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="noticePriority">Priority Level</label>
+                        <select id="noticePriority" class="form-select" required>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="admin-btn primary" style="flex: 1;">Add Notice</button>
+                            <button type="button" class="admin-btn secondary" onclick="cancelEdit()" id="cancelEditBtn" style="display: none;">Cancel Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="admin-section">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px;">
+                        <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V18C2 18.5304 2.21071 19.0391 2.58579 19.4142C2.96086 19.7893 3.46957 20 4 20H16C16.5304 20 17.0391 19.7893 17.4142 19.4142C17.7893 19.0391 18 18.5304 18 18V13M18.5 2.5C18.8978 2.10217 19.4374 1.87868 20 1.87868C20.5626 1.87868 21.1022 2.10217 21.5 2.5C21.8978 2.89783 22.1213 3.43739 22.1213 4C22.1213 4.56261 21.8978 5.10217 21.5 5.5L12 15L8 16L9 12L18.5 2.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Manage Existing Notices
+                </h3>
+                
+                <div class="notice-management-tools" style="margin-bottom: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                    <button class="admin-btn secondary" onclick="selectAllNotices()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-check-square"></i> Select All
+                    </button>
+                    <button class="admin-btn secondary" onclick="deselectAllNotices()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-square"></i> Deselect All
+                    </button>
+                    <button class="admin-btn danger" onclick="bulkDeleteNotices()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-trash"></i> Delete Selected
+                    </button>
+                    <button class="admin-btn primary" onclick="exportNotices()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-download"></i> Export All
+                    </button>
+                    <button class="admin-btn secondary" onclick="refreshNoticeList()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+                
+                <div class="notice-list" id="noticeList">
+                    
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px;">
+                        <path d="M9 19V6L20 12L9 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Notice Statistics
+                </h3>
+                
+                <div id="noticeStats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div class="stat-card stat-card-success" style="background: var(--success); color: white; padding: 1.5rem; text-align: center; border: var(--border-width) solid var(--black); border-radius: var(--border-radius); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); transition: all var(--transition-speed) ease;">
+                        <div class="stat-icon" style="margin-bottom: 0.5rem;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3V21H21V9L15 3H3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 9H15M9 13H15M9 17H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15 3V9H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem;" id="totalNotices">0</div>
+                        <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Total Notices</div>
+                    </div>
+                    <div class="stat-card stat-card-danger" style="background: var(--danger); color: white; padding: 1.5rem; text-align: center; border: var(--border-width) solid var(--black); border-radius: var(--border-radius); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); transition: all var(--transition-speed) ease;">
+                        <div class="stat-icon" style="margin-bottom: 0.5rem;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.29 3.86L1.82 18C1.64 18.37 1.79 18.82 2.16 19C2.24 19.03 2.32 19.05 2.4 19.05H21.6C22 19.05 22.33 18.72 22.33 18.32C22.33 18.24 22.31 18.16 22.28 18.08L13.81 3.86C13.63 3.49 13.18 3.34 12.81 3.52C12.69 3.58 12.58 3.67 12.5 3.78L10.29 3.86Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 9V13M12 17H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem;" id="urgentNotices">0</div>
+                        <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Urgent Notices</div>
+                    </div>
+                    <div class="stat-card stat-card-warning" style="background: var(--warning); color: var(--black); padding: 1.5rem; text-align: center; border: var(--border-width) solid var(--black); border-radius: var(--border-radius); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); transition: all var(--transition-speed) ease;">
+                        <div class="stat-icon" style="margin-bottom: 0.5rem;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 9V13M12 17H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem;" id="importantNotices">0</div>
+                        <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Important Notices</div>
+                    </div>
+                    <div class="stat-card stat-card-secondary" style="background: var(--secondary); color: var(--black); padding: 1.5rem; text-align: center; border: var(--border-width) solid var(--black); border-radius: var(--border-radius); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); transition: all var(--transition-speed) ease;">
+                        <div class="stat-icon" style="margin-bottom: 0.5rem;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem;" id="infoNotices">0</div>
+                        <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Info Notices</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px;">
+                        <path d="M16 4H18C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4H8M12 1V7M9 4L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Create New Blog Post
+                </h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    Create and publish blog posts for the community. Share news, tutorials, and updates with your audience.
+                </p>
+                
+                <div id="blogMessageContainer"></div>
+                
+                <form class="notice-form" id="blogForm">
+                    <div class="form-group">
+                        <label for="blogTitle">Blog Title</label>
+                        <input type="text" id="blogTitle" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blogCategory">Category</label>
+                        <select id="blogCategory" class="form-select" required>
+                            <option value="Announcement">Announcement</option>
+                            <option value="Gaming Guide">Gaming Guide</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Community">Community</option>
+                            <option value="Updates">Updates</option>
+                            <option value="Tutorial">Tutorial</option>
+                            <option value="News">News</option>
+                            <option value="Review">Review</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blogAuthor">Author</label>
+                        <input type="text" id="blogAuthor" class="form-input" value="Admin Team" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blogTags">Tags (comma-separated)</label>
+                        <input type="text" id="blogTags" class="form-input" placeholder="gaming, tutorial, tips">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blogExcerpt">Excerpt/Summary</label>
+                        <textarea id="blogExcerpt" class="form-textarea" required placeholder="Brief summary of the blog post..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blogContent">Blog Content (HTML supported)</label>
+                        <textarea id="blogContent" class="form-textarea" required style="min-height: 200px;" placeholder="Write your blog content here. You can use HTML tags for formatting..."></textarea>
+                        <small style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem; display: block;">
+                            Tip: Use HTML tags like &lt;h2&gt;, &lt;h3&gt;, &lt;p&gt;, &lt;strong&gt;, &lt;ul&gt;, &lt;li&gt; for formatting
+                        </small>
+                    </div>
+                    
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="admin-btn primary" style="flex: 1;">Publish Blog Post</button>
+                            <button type="button" class="admin-btn secondary" onclick="cancelBlogEdit()" id="cancelBlogEditBtn" style="display: none;">Cancel Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="admin-section">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px;">
+                        <path d="M16 4H18C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4H8M12 1V7M9 4L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Manage Blog Posts
+                </h3>
+                
+                <div class="blog-management-tools" style="margin-bottom: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                    <button class="admin-btn secondary" onclick="selectAllBlogs()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-check-square"></i> Select All
+                    </button>
+                    <button class="admin-btn secondary" onclick="deselectAllBlogs()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-square"></i> Deselect All
+                    </button>
+                    <button class="admin-btn danger" onclick="bulkDeleteBlogs()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-trash"></i> Delete Selected
+                    </button>
+                    <button class="admin-btn primary" onclick="exportBlogs()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-download"></i> Export All
+                    </button>
+                    <button class="admin-btn secondary" onclick="refreshBlogList()" style="padding: 0.5rem 1rem;">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+                
+                <div class="blog-list" id="blogList">
+                    <!-- Blog posts will be loaded here -->
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px;">
+                        <path d="M9 19V6L20 12L9 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Blog Statistics
+                </h3>
+                
+                <div id="blogStats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div class="stat-card stat-card-primary" style="background: var(--primary); color: white; padding: 1.5rem; text-align: center; border: var(--border-width) solid var(--black); border-radius: var(--border-radius); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); transition: all var(--transition-speed) ease;">
+                        <div class="stat-icon" style="margin-bottom: 0.5rem;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 2V8H20M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem;" id="totalBlogs">0</div>
+                        <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Total Blog Posts</div>
+                    </div>
+                    <div class="stat-card stat-card-success" style="background: var(--success); color: white; padding: 1.5rem; text-align: center; border: var(--border-width) solid var(--black); border-radius: var(--border-radius); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); transition: all var(--transition-speed) ease;">
+                        <div class="stat-icon" style="margin-bottom: 0.5rem;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 9V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V9C10 10.1046 10.8954 11 12 11C13.1046 11 14 10.1046 14 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 21L16 21C17.1046 21 18 20.1046 18 19V15C18 13.8954 17.1046 13 16 13L8 13C6.89543 13 6 13.8954 6 15V19C6 20.1046 6.89543 21 8 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 13V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem;" id="totalBlogLikes">0</div>
+                        <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Total Likes</div>
+                    </div>
+                    <div class="stat-card stat-card-warning" style="background: var(--warning); color: var(--black); padding: 1.5rem; text-align: center; border: var(--border-width) solid var(--black); border-radius: var(--border-radius); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); transition: all var(--transition-speed) ease;">
+                        <div class="stat-icon" style="margin-bottom: 0.5rem;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem;" id="totalBlogComments">0</div>
+                        <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Total Comments</div>
+                    </div>
+                    <div class="stat-card stat-card-secondary" style="background: var(--secondary); color: var(--black); padding: 1.5rem; text-align: center; border: var(--border-width) solid var(--black); border-radius: var(--border-radius); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); transition: all var(--transition-speed) ease;">
+                        <div class="stat-icon" style="margin-bottom: 0.5rem;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.59 13.41L13.42 20.58C13.2343 20.766 13.0137 20.9135 12.7709 21.0141C12.5281 21.1148 12.2678 21.1666 12.005 21.1666C11.7422 21.1666 11.4819 21.1148 11.2391 21.0141C10.9963 20.9135 10.7757 20.766 10.59 20.58L2 12V2H12L20.59 10.59C20.9625 10.9647 21.1716 11.4716 21.1716 12C21.1716 12.5284 20.9625 13.0353 20.59 13.41V13.41Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7 7H7.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem;" id="blogCategories">0</div>
+                        <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Categories</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px;">
+                        <path d="M21 8C21 6.11438 21 5.17157 20.4142 4.58579C19.8284 4 18.8856 4 17 4H7C5.11438 4 4.17157 4 3.58579 4.58579C3 5.17157 3 6.11438 3 8V16C3 17.8856 3 18.8284 3.58579 19.4142C4.17157 20 5.11438 20 7 20H17C18.8856 20 19.8284 20 20.4142 19.4142C21 18.8284 21 17.8856 21 16V8Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M7 4V2M17 4V2M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7 14H10M7 17H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M14 14L16 16L20 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Private Creator Tools
+                </h3>
+                
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: var(--border-radius); margin-bottom: 24px; border: var(--border-width) solid var(--black); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; opacity: 0.6;"></div>
+                    <div style="position: absolute; bottom: -30px; left: -30px; width: 100px; height: 100px; background: rgba(255, 255, 255, 0.05); border-radius: 50%;"></div>
+                    <h4 style="margin: 0 0 8px 0; display: flex; align-items: center; gap: 8px; position: relative; z-index: 2;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Admin-Only Access
+                    </h4>
+                    <p style="margin: 0; opacity: 0.9; line-height: 1.5; font-size: 14px; position: relative; z-index: 2;">
+                        These tools use pre-configured API credentials and are only available in the admin panel. 
+                        No additional setup required.
+                    </p>
+                </div>
+
+                <div class="admin-tools-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
+
+                    <div class="admin-tool-card" style="background: var(--white); border: var(--border-width) solid var(--black); border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; background: rgba(255, 107, 53, 0.1); border-radius: 50%;"></div>
+                        <div class="tool-icon" style="width: 48px; height: 48px; background: var(--primary); border: var(--border-width) solid var(--black); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: white; position: relative; z-index: 2;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 8C21 6.11438 21 5.17157 20.4142 4.58579C19.8284 4 18.8856 4 17 4H7C5.11438 4 4.17157 4 3.58579 4.58579C3 5.17157 3 6.11438 3 8V16C3 17.8856 3 18.8284 3.58579 19.4142C4.17157 20 5.11438 20 7 20H17C18.8856 20 19.8284 20 20.4142 19.4142C21 18.8284 21 17.8856 21 16V8Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M7 4V2M17 4V2M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M7 14H10M7 17H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M14 14L16 16L20 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 style="margin: 0 0 8px 0; font-weight: 800; text-transform: uppercase; color: var(--text-primary); position: relative; z-index: 2;">Loyal Subscriber Giveaway</h4>
+                        <p style="margin: 0 0 16px 0; color: var(--text-secondary); line-height: 1.4; font-size: 14px; position: relative; z-index: 2;">
+                            Select genuine, engaged subscribers for giveaways using advanced loyalty scoring and organic activity detection.
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; position: relative; z-index: 2;">
+                            <span style="background: var(--bg-secondary); border: 2px solid var(--black); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase;">MULTI-VIDEO</span>
+                            <span style="background: var(--bg-secondary); border: 2px solid var(--black); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase;">LIVE CHAT</span>
+                            <span style="background: var(--bg-secondary); border: 2px solid var(--black); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase;">ANTI-SPAM</span>
+                        </div>
+                        <button class="admin-btn primary" onclick="openAdminGiveawayTool()" style="width: 100%; padding: 12px; font-size: 14px; margin: 0; position: relative; z-index: 2;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Launch Tool
+                        </button>
+                    </div>
+
+                    <div class="admin-tool-card" style="background: var(--white); border: var(--border-width) solid var(--black); border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; background: rgba(255, 230, 109, 0.1); border-radius: 50%;"></div>
+                        <div class="tool-icon" style="width: 48px; height: 48px; background: var(--secondary); border: var(--border-width) solid var(--black); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: black; position: relative; z-index: 2;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 style="margin: 0 0 8px 0; font-weight: 800; text-transform: uppercase; color: var(--text-primary); position: relative; z-index: 2;">Advanced Analytics</h4>
+                        <p style="margin: 0 0 16px 0; color: var(--text-secondary); line-height: 1.4; font-size: 14px; position: relative; z-index: 2;">
+                            Deep dive into your channel performance with detailed subscriber behavior and engagement analytics.
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; position: relative; z-index: 2;">
+                            <span style="background: var(--bg-secondary); border: 2px solid var(--black); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase;">REAL-TIME</span>
+                            <span style="background: var(--bg-secondary); border: 2px solid var(--black); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase;">DETAILED</span>
+                            <span style="background: var(--bg-secondary); border: 2px solid var(--black); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase;">EXPORT</span>
+                        </div>
+                        <button class="admin-btn secondary" onclick="openAdminAnalyticsTool()" style="width: 100%; padding: 12px; font-size: 14px; margin: 0; position: relative; z-index: 2;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Launch Analytics
+                        </button>
+                    </div>
+
+                    <div class="admin-tool-card" style="background: var(--white); border: var(--border-width) solid var(--black); border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; background: rgba(78, 205, 196, 0.1); border-radius: 50%;"></div>
+                        <div class="tool-icon" style="width: 48px; height: 48px; background: var(--accent); border: var(--border-width) solid var(--black); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: white; position: relative; z-index: 2;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89317 18.7122 8.75608 18.1676 9.45768C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 style="margin: 0 0 8px 0; font-weight: 800; text-transform: uppercase; color: var(--text-primary); position: relative; z-index: 2;">Community Manager</h4>
+                        <p style="margin: 0 0 16px 0; color: var(--text-secondary); line-height: 1.4; font-size: 14px; position: relative; z-index: 2;">
+                            Advanced comment moderation, spam detection, and community engagement management tools.
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; position: relative; z-index: 2;">
+                            <span style="background: var(--bg-secondary); border: 2px solid var(--black); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase;">MODERATION</span>
+                            <span style="background: var(--bg-secondary); border: 2px solid var(--black); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase;">AUTO-DETECT</span>
+                            <span style="background: var(--bg-secondary); border: 2px solid var(--black); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase;">SENTIMENT</span>
+                        </div>
+                        <button class="admin-btn accent" onclick="openAdminCommunityTool()" style="width: 100%; padding: 12px; font-size: 14px; background: var(--accent); color: white; margin: 0; position: relative; z-index: 2;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Launch Community Manager
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tool-modal" id="giveawayModal" style="display: none;">
+        <div class="modal-overlay" onclick="hideGiveawayTool()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Loyal Subscriber Giveaway Tool</h3>
+                <button class="modal-close" onclick="hideGiveawayTool()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                
+                <div class="config-section">
+                    <h4>Giveaway Configuration</h4>
+                    <div class="config-grid">
+                        <div class="config-item">
+                            <label for="winnerCount">Number of Winners</label>
+                            <input type="number" id="winnerCount" min="1" max="50" value="3" class="config-input">
+                        </div>
+                        <div class="config-item">
+                            <label for="minSubscriptionAge">Minimum Subscription Age (days)</label>
+                            <input type="number" id="minSubscriptionAge" min="1" value="30" class="config-input">
+                        </div>
+                        <div class="config-item">
+                            <label for="minEngagementRate">Minimum Engagement Rate (%)</label>
+                            <input type="number" id="minEngagementRate" min="0" max="100" value="15" class="config-input">
+                        </div>
+                        <div class="config-item">
+                            <label for="excludeBots">Exclude Bot Accounts</label>
+                            <input type="checkbox" id="excludeBots" checked class="config-checkbox">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="hideGiveawayTool()">Cancel</button>
+                    <button class="btn-primary" onclick="analyzeSubscribers()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11H15M9 15H15M21 5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Analyze Subscribers
+                    </button>
+                </div>
+
+                <div class="results-section" id="resultsSection" style="display: none;">
+                    <h4>Analysis Results</h4>
+                    <div class="results-content" id="resultsContent">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tool-modal" id="analyticsModal" style="display: none;">
+        <div class="modal-overlay" onclick="hideAnalyticsTool()"></div>
+        <div class="modal-content analytics-modal">
+            <div class="modal-header">
+                <h3>Channel Analytics Dashboard</h3>
+                <button class="modal-close" onclick="hideAnalyticsTool()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body analytics-body">
+                
+                <div class="analytics-header">
+                    <div class="channel-info" id="channelInfo">
+                        <div class="channel-avatar">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21V19C20 17.9391 20 16.9217 19.2426 16.1716C18.4853 15.4214 17.4783 15 16.4286 15H7.57143C6.52174 15 5.51472 15.4214 4.75736 16.1716C4 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="channel-details">
+                            <h4 id="channelName">Loading...</h4>
+                            <p id="channelStats">Fetching channel data...</p>
+                        </div>
+                        <div class="refresh-btn">
+                            <button onclick="refreshAnalytics()" class="btn-refresh">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 4V10H7M23 20V14H17M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14L18.36 18.36A9 9 0 0 1 3.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-content">
+                    <p>Analytics dashboard will load here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tool-modal" id="communityModal" style="display: none;">
+        <div class="modal-overlay" onclick="hideCommunityTool()"></div>
+        <div class="modal-content community-modal">
+            <div class="modal-header">
+                <h3>Community Manager Dashboard</h3>
+                <button class="modal-close" onclick="hideCommunityTool()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body community-body">
+                
+                <div class="community-content">
+                    <p>Community manager dashboard will load here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contacts">Contacts</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                        <li><a href="https://discord.gg/cqPEdtTRnH" target="_blank">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@Afterlife_AL/streams" target="_blank">Youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Afterlife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/loading-manager.js"></script>
+    <script src="js/youtube-config.js"></script>
+    <script src="js/admin-script.js"></script>
+</body>
+
+</html>

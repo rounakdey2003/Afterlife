@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Afterlife</title>
+    <link rel="stylesheet" href="css/base-theme.css">
+    <link rel="stylesheet" href="css/blog-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&family=Bebas+Neue:wght@400&family=Public+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo animate-glow">Afterlife</div>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading blog posts...</p>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <header class="header glass">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">Afterlife</div>
+            </div>
+            <button class="mobile-menu-btn smooth-transition" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link smooth-transition">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="stream.html" class="nav-link smooth-transition">
+                    <i class="fas fa-video"></i>
+                    Stream
+                </a>
+                <a href="tools.html" class="nav-link smooth-transition">
+                    <i class="fas fa-tools"></i>
+                    Tools
+                </a>
+                <a href="store.html" class="nav-link smooth-transition">
+                    <i class="fas fa-store"></i>
+                    Store
+                </a>
+                <a href="notice.html" class="nav-link smooth-transition">
+                    <i class="fas fa-bell"></i>
+                    Notices
+                </a>
+                <a href="blog.html" class="nav-link active smooth-transition">
+                    <i class="fas fa-blog"></i>
+                    Blog
+                </a>
+                <a href="admin-login.html" class="nav-link admin-link smooth-transition">
+                    <i class="fas fa-user-shield"></i>
+                    Admin
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Afterlife Blog</h1>
+                    <p class="hero-subtitle">Stay updated with the latest news, gaming strategies, community highlights, and behind-the-scenes content from the Afterlife universe.</p>
+                    <div class="cta-buttons">
+                        <a href="#blog-content" class="cta-button cta-primary">
+                            <i class="fas fa-arrow-down"></i>
+                            Explore Posts
+                        </a>
+                        <a href="#latest" class="cta-button cta-secondary">
+                            <i class="fas fa-clock"></i>
+                            Latest Updates
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="blog-container" id="blog-content">
+            <div class="blog-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalPosts">0</div>
+                    <div class="stat-label">Total Posts</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalLikes">0</div>
+                    <div class="stat-label">Community Likes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalComments">0</div>
+                    <div class="stat-label">Comments</div>
+                </div>
+            </div>
+
+            <div class="blog-filters">
+                <div class="filter-section">
+                    <label for="categoryFilter" class="filter-label">Filter by Category:</label>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="Announcement">Announcements</option>
+                        <option value="Gaming Guide">Gaming Guides</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Community">Community</option>
+                        <option value="Updates">Updates</option>
+                    </select>
+                </div>
+                <div class="filter-section">
+                    <label for="sortFilter" class="filter-label">Sort by:</label>
+                    <select id="sortFilter" class="filter-select">
+                        <option value="date-desc">Newest First</option>
+                        <option value="date-asc">Oldest First</option>
+                        <option value="likes-desc">Most Liked</option>
+                        <option value="comments-desc">Most Commented</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog posts will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Blog Modal -->
+    <div class="blog-modal" id="blogModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="modal-close" onclick="closeBlogModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="blog-meta" id="modalMeta"></div>
+                <div class="blog-full-content" id="modalContent"></div>
+                
+                <div class="blog-actions">
+                    <div class="interaction-buttons">
+                        <button class="interaction-btn" id="modalLikeBtn" onclick="toggleLike(currentBlogId)">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span id="modalLikeCount">0</span>
+                        </button>
+                        <button class="interaction-btn" id="modalDislikeBtn" onclick="toggleDislike(currentBlogId)">
+                            <i class="fas fa-thumbs-down"></i>
+                            <span id="modalDislikeCount">0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="comments-section">
+                    <div class="comments-header">
+                        <h3>Comments (<span id="commentCount">0</span>)</h3>
+                    </div>
+                    
+                    <div class="comment-form">
+                        <textarea id="commentInput" class="comment-input" placeholder="Share your thoughts..." rows="3"></textarea>
+                        <button class="comment-submit" onclick="addComment()">
+                            <i class="fas fa-paper-plane"></i>
+                            Post Comment
+                        </button>
+                    </div>
+                    
+                    <div class="comments-list" id="commentsList">
+                        <!-- Comments will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contacts">Contacts</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                        <li><a href="https://discord.gg/cqPEdtTRnH" target="_blank">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@Afterlife_AL/streams" target="_blank">Youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Afterlife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/loading-manager.js"></script>
+    <script src="js/blog-script.js"></script>
+</body>
+
+</html>

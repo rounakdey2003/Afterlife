@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Tools - Afterlife</title>
+    <link rel="stylesheet" href="css/base-theme.css">
+    <link rel="stylesheet" href="css/tools-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&family=Bebas+Neue:wght@400&family=Public+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo animate-glow">Afterlife</div>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading creator tools...</p>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <header class="header glass">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">Afterlife</div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="stream.html" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    Stream
+                </a>
+                <a href="tools.html" class="nav-link active">
+                    <i class="fas fa-tools"></i>
+                    Tools
+                </a>
+                <a href="store.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    Store
+                </a>
+                <a href="notice.html" class="nav-link">
+                    <i class="fas fa-bell"></i>
+                    Notices
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <i class="fas fa-blog"></i>
+                    Blog
+                </a>
+                <a href="admin-login.html" class="nav-link admin-link">
+                    <i class="fas fa-user-shield"></i>
+                    Admin
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Tools Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title animate-slide-up">Creator Tools</h1>
+                    <p class="hero-subtitle animate-slide-up">Professional YouTube tools for content creators and channel managers</p>
+                    
+                    <div class="tools-features animate-fade-in">
+                        <div class="feature-item glass-card">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Analytics</h3>
+                            <p>Deep insights into your channel performance</p>
+                        </div>
+                        <div class="feature-item glass-card">
+                            <i class="fas fa-users"></i>
+                            <h3>Community</h3>
+                            <p>Manage and engage with your audience</p>
+                        </div>
+                        <div class="feature-item glass-card">
+                            <i class="fas fa-gift"></i>
+                            <h3>Giveaways</h3>
+                            <p>Select loyal subscribers for contests</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section class="tools-section" style="margin-top: 4rem;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title animate-slide-up">
+                        <span>Available Tools</span>
+                    </h2>
+                </div>
+                
+                <div class="tools-grid animate-fade-in">
+                    <div class="tool-card" style="position: relative;">
+                        <div class="access-indicator" id="giveawayAccess">Public</div>
+                        <div class="tool-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Loyal Subscriber Giveaway</h3>
+                            <p>Select genuine, engaged subscribers for your giveaways based on loyalty metrics and organic activity patterns.</p>
+                            <div class="tool-features">
+                                <span class="feature-tag">Engagement Analysis</span>
+                                <span class="feature-tag">Organic Detection</span>
+                                <span class="feature-tag">Loyalty Scoring</span>
+                            </div>
+                            <div class="tool-status status-available">Available</div>
+                            <button class="tool-btn" onclick="showGiveawayTool()">
+                                <i class="fas fa-gift"></i>
+                                Launch Tool
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" style="position: relative;">
+                        <div class="access-indicator" id="analyticsAccess">Public</div>
+                        <div class="tool-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Channel Analytics</h3>
+                            <p>Comprehensive analytics for your YouTube channel including watch time, engagement rates, and growth metrics.</p>
+                            <div class="tool-features">
+                                <span class="feature-tag">Real-time Data</span>
+                                <span class="feature-tag">Growth Tracking</span>
+                                <span class="feature-tag">Engagement Analysis</span>
+                            </div>
+                            <div class="tool-status status-available">Available</div>
+                            <button class="tool-btn" onclick="showAnalyticsTool()">
+                                <i class="fas fa-chart-line"></i>
+                                Launch Tool
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" style="position: relative;">
+                        <div class="access-indicator" id="communityAccess">Public</div>
+                        <div class="tool-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Community Manager</h3>
+                            <p>Manage your community interactions, moderate comments, and track engagement patterns.</p>
+                            <div class="tool-features">
+                                <span class="feature-tag">Comment Management</span>
+                                <span class="feature-tag">Moderation</span>
+                                <span class="feature-tag">Auto-Responses</span>
+                            </div>
+                            <div class="tool-status status-available">Available</div>
+                            <button class="tool-btn" onclick="showCommunityTool()">
+                                <i class="fas fa-users"></i>
+                                Launch Tool
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Video Optimizer</h3>
+                            <p>Optimize your video titles, descriptions, and tags for better discovery and engagement.</p>
+                            <div class="tool-features">
+                                <span class="feature-tag">SEO Analysis</span>
+                                <span class="feature-tag">Tag Suggestions</span>
+                                <span class="feature-tag">Title Optimization</span>
+                            </div>
+                            <div class="tool-status status-coming-soon">Coming Soon</div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Upload Scheduler</h3>
+                            <p>Schedule your video uploads for optimal timing based on your audience activity patterns.</p>
+                            <div class="tool-features">
+                                <span class="feature-tag">Smart Timing</span>
+                                <span class="feature-tag">Batch Upload</span>
+                                <span class="feature-tag">Analytics Integration</span>
+                            </div>
+                            <div class="tool-status status-coming-soon">Coming Soon</div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Thumbnail Analyzer</h3>
+                            <p>Analyze and optimize your video thumbnails for maximum click-through rates.</p>
+                            <div class="tool-features">
+                                <span class="feature-tag">A/B Testing</span>
+                                <span class="feature-tag">CTR Analysis</span>
+                                <span class="feature-tag">Design Suggestions</span>
+                            </div>
+                            <div class="tool-status status-coming-soon">Coming Soon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="section-divider">
+
+        <!-- API Configuration Section -->
+        <section class="api-config-section" id="apiConfigSection">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>API Configuration</span>
+                    </h2>
+                </div>
+                
+                <!-- Mode Indicator -->
+                <div id="modeIndicator" class="mode-indicator-container">
+                    <div class="mode-indicator public">
+                        <i class="fas fa-users"></i>
+                        <strong>Public Mode:</strong> Configure your own YouTube API credentials below
+                    </div>
+                </div>
+                
+                <div class="config-card glass-card">
+                    <div class="config-header">
+                        <h3>
+                            <i class="fas fa-key"></i>
+                            YouTube API Setup
+                        </h3>
+                        <p>Configure your YouTube Data API credentials to unlock advanced features</p>
+                    </div>
+                    
+                    <div class="config-form">
+                        <div class="form-group">
+                            <label for="userApiKey">
+                                <i class="fas fa-key"></i>
+                                YouTube Data API Key
+                            </label>
+                            <input type="password" id="userApiKey" placeholder="Enter your YouTube Data API v3 key">
+                            <div class="help-text">
+                                Get your API key from <a href="https://console.developers.google.com/" target="_blank">Google Cloud Console</a>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userChannelId">
+                                <i class="fas fa-tv"></i>
+                                YouTube Channel ID
+                            </label>
+                            <input type="text" id="userChannelId" placeholder="Enter your YouTube Channel ID">
+                            <div class="help-text">
+                                Find your Channel ID in YouTube Studio → Settings → Channel → Advanced settings
+                            </div>
+                        </div>
+                        
+                        <div class="config-actions">
+                            <button class="cta-button cta-primary" onclick="saveApiConfiguration()">
+                                <i class="fas fa-save"></i>
+                                Save Configuration
+                            </button>
+                            <button class="cta-button cta-secondary" onclick="testApiConfiguration()">
+                                <i class="fas fa-check-circle"></i>
+                                Test Connection
+                            </button>
+                        </div>
+                        
+                        <div id="configStatus" class="config-status" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="section-divider">
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>How It Works</span>
+                    </h2>
+                </div>
+                
+                <div class="steps-grid">
+                    <div class="step-card glass-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Get API Key</h3>
+                            <p>Create a project in Google Cloud Console and enable the YouTube Data API v3</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card glass-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Configure Tools</h3>
+                            <p>Enter your API key and Channel ID to unlock all creator tools</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card glass-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Analyze & Optimize</h3>
+                            <p>Use powerful analytics and automation tools to grow your channel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Giveaway Tool Modal -->
+    <div id="giveawayModal" class="tool-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-gift"></i> Loyal Subscriber Giveaway</h2>
+                <button class="modal-close" onclick="hideGiveawayTool()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="giveaway-controls">
+                    <div class="control-group">
+                        <label for="giveawayCount">Number of Winners:</label>
+                        <input type="number" id="giveawayCount" value="5" min="1" max="50">
+                    </div>
+                    <div class="control-group">
+                        <label for="loyaltyThreshold">Minimum Loyalty Score:</label>
+                        <select id="loyaltyThreshold">
+                            <option value="60">60% - Active Subscribers</option>
+                            <option value="75" selected>75% - Loyal Subscribers</option>
+                            <option value="85">85% - Super Loyal</option>
+                            <option value="95">95% - Ultra Loyal</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="engagementPeriod">Analysis Period:</label>
+                        <select id="engagementPeriod">
+                            <option value="30">Last 30 Days</option>
+                            <option value="60" selected>Last 60 Days</option>
+                            <option value="90">Last 90 Days</option>
+                        </select>
+                    </div>
+                    <button class="analyze-btn" onclick="analyzeSubscribers()">
+                        <i class="fas fa-search"></i>
+                        Analyze Subscribers
+                    </button>
+                </div>
+                
+                <div id="giveawayResults" class="results-section">
+                    <h3>Selected Winners</h3>
+                    <div id="winnersList" class="winners-list">
+                        <p class="no-data">Click "Analyze Subscribers" to find eligible winners</p>
+                    </div>
+                    <div class="giveaway-actions">
+                        <button class="export-btn" onclick="exportWinners()">
+                            <i class="fas fa-download"></i>
+                            Export Winners
+                        </button>
+                        <button class="rerun-btn" onclick="rerunGiveaway()">
+                            <i class="fas fa-redo"></i>
+                            Run Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Tool Modal -->
+    <div id="analyticsModal" class="tool-modal">
+        <div class="modal-content analytics-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-chart-line"></i> Channel Analytics</h2>
+                <button class="modal-close" onclick="hideAnalyticsTool()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="analytics-tabs">
+                    <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+                    <button class="tab-btn" onclick="switchTab('videos')">Videos</button>
+                    <button class="tab-btn" onclick="switchTab('audience')">Audience</button>
+                    <button class="tab-btn" onclick="switchTab('engagement')">Engagement</button>
+                </div>
+                
+                <div id="overviewTab" class="tab-content active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Views</h3>
+                            <div class="stat-value" id="totalViews">Loading...</div>
+                            <div class="stat-change positive">+12.5%</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Subscribers</h3>
+                            <div class="stat-value" id="subscriberCount">Loading...</div>
+                            <div class="stat-change positive">+8.3%</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Watch Time (Hours)</h3>
+                            <div class="stat-value" id="watchTime">Loading...</div>
+                            <div class="stat-change positive">+15.2%</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Engagement Rate</h3>
+                            <div class="stat-value" id="engagementRate">Loading...</div>
+                            <div class="stat-change negative">-2.1%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="viewsChart" width="800" height="400"></canvas>
+                    </div>
+                </div>
+                
+                <div id="videosTab" class="tab-content">
+                    <div class="videos-controls">
+                        <select id="videosPeriod">
+                            <option value="7">Last 7 Days</option>
+                            <option value="30" selected>Last 30 Days</option>
+                            <option value="90">Last 90 Days</option>
+                        </select>
+                        <button class="refresh-btn" onclick="refreshAnalytics()">
+                            <i class="fas fa-sync"></i>
+                            Refresh
+                        </button>
+                    </div>
+                    <div id="videosList" class="videos-list">
+                        <div class="loading">Loading top performing videos...</div>
+                    </div>
+                </div>
+                
+                <div id="audienceTab" class="tab-content">
+                    <div class="audience-metrics">
+                        <h3>Audience Demographics</h3>
+                        <div id="audienceCharts" class="charts-grid">
+                            <div class="chart-item">
+                                <h4>Age Groups</h4>
+                                <canvas id="ageChart" width="300" height="200"></canvas>
+                            </div>
+                            <div class="chart-item">
+                                <h4>Geography</h4>
+                                <canvas id="geoChart" width="300" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="engagementTab" class="tab-content">
+                    <div class="engagement-metrics">
+                        <h3>Engagement Analysis</h3>
+                        <div class="engagement-stats">
+                            <div class="engagement-item">
+                                <span class="label">Likes per Video:</span>
+                                <span class="value" id="avgLikes">Loading...</span>
+                            </div>
+                            <div class="engagement-item">
+                                <span class="label">Comments per Video:</span>
+                                <span class="value" id="avgComments">Loading...</span>
+                            </div>
+                            <div class="engagement-item">
+                                <span class="label">Shares per Video:</span>
+                                <span class="value" id="avgShares">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="analytics-actions">
+                    <button class="export-btn" onclick="exportAnalytics('pdf')">
+                        <i class="fas fa-file-pdf"></i>
+                        Export PDF
+                    </button>
+                    <button class="export-btn" onclick="exportAnalytics('csv')">
+                        <i class="fas fa-file-csv"></i>
+                        Export CSV
+                    </button>
+                    <button class="schedule-btn" onclick="scheduleReport()">
+                        <i class="fas fa-calendar"></i>
+                        Schedule Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Community Manager Modal -->
+    <div id="communityModal" class="tool-modal">
+        <div class="modal-content community-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-users"></i> Community Manager</h2>
+                <button class="modal-close" onclick="hideCommunityTool()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="community-tabs">
+                    <button class="tab-btn active" onclick="switchCommunityTab('comments')">Comments</button>
+                    <button class="tab-btn" onclick="switchCommunityTab('moderation')">Moderation</button>
+                    <button class="tab-btn" onclick="switchCommunityTab('analytics')">Analytics</button>
+                    <button class="tab-btn" onclick="switchCommunityTab('settings')">Settings</button>
+                </div>
+                
+                <div id="commentsTab" class="tab-content active">
+                    <div class="comments-controls">
+                        <div class="search-filter">
+                            <input type="text" placeholder="Search comments..." id="commentSearch">
+                            <button onclick="searchComments()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <select id="commentFilter" onchange="filterComments()">
+                            <option value="all">All Comments</option>
+                            <option value="recent">Recent</option>
+                            <option value="flagged">Flagged</option>
+                            <option value="pending">Pending Review</option>
+                        </select>
+                        <button class="refresh-btn" onclick="refreshCommunityData()">
+                            <i class="fas fa-sync"></i>
+                            Refresh
+                        </button>
+                    </div>
+                    <div id="commentsList" class="comments-list">
+                        <div class="loading">Loading recent comments...</div>
+                    </div>
+                </div>
+                
+                <div id="moderationTab" class="tab-content">
+                    <div class="moderation-queue">
+                        <h3>Moderation Queue</h3>
+                        <div class="queue-controls">
+                            <button class="auto-mod-btn" onclick="enableAutoModeration()">
+                                <i class="fas fa-robot"></i>
+                                Enable Auto-Moderation
+                            </button>
+                            <button class="bulk-action-btn" onclick="bulkModerateComments()">
+                                <i class="fas fa-check-double"></i>
+                                Bulk Actions
+                            </button>
+                        </div>
+                        <div id="queueList" class="queue-list">
+                            <div class="loading">Loading moderation queue...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="moderation-settings">
+                        <h3>Auto-Moderation Rules</h3>
+                        <div class="rule-group">
+                            <label>
+                                <input type="checkbox" checked>
+                                Block spam comments
+                            </label>
+                            <label>
+                                <input type="checkbox" checked>
+                                Flag potentially offensive content
+                            </label>
+                            <label>
+                                <input type="checkbox">
+                                Auto-approve comments from subscribers
+                            </label>
+                        </div>
+                        <button class="save-btn" onclick="saveModerationSettings()">
+                            Save Settings
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="analyticsTab" class="tab-content">
+                    <div class="community-analytics">
+                        <h3>Community Insights</h3>
+                        <div class="insights-grid">
+                            <div class="insight-card">
+                                <h4>Top Commenters</h4>
+                                <div id="topCommenters" class="commenters-list">
+                                    <div class="loading">Loading top commenters...</div>
+                                </div>
+                            </div>
+                            <div class="insight-card">
+                                <h4>Engagement Trends</h4>
+                                <canvas id="engagementTrendChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="settingsTab" class="tab-content">
+                    <div class="community-settings">
+                        <h3>Community Settings</h3>
+                        <div class="settings-group">
+                            <h4>Comment Filtering</h4>
+                            <label>
+                                <input type="checkbox" checked>
+                                Review comments before publishing
+                            </label>
+                            <label>
+                                <input type="checkbox">
+                                Block comments with links
+                            </label>
+                            <label>
+                                <input type="checkbox">
+                                Block potentially inappropriate comments
+                            </label>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <h4>Notifications</h4>
+                            <label>
+                                <input type="checkbox" checked>
+                                Email notifications for flagged comments
+                            </label>
+                            <label>
+                                <input type="checkbox">
+                                Daily community digest
+                            </label>
+                        </div>
+                        
+                        <div class="settings-actions">
+                            <button class="save-btn" onclick="saveCommunitySettings()">
+                                Save Settings
+                            </button>
+                            <button class="reset-btn" onclick="resetCommunitySettings()">
+                                Reset to Defaults
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="community-actions">
+                    <button class="export-btn" onclick="exportCommunityReport()">
+                        <i class="fas fa-download"></i>
+                        Export Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contacts">Contacts</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                        <li><a href="https://discord.gg/cqPEdtTRnH" target="_blank">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@Afterlife_AL/streams" target="_blank">Youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Afterlife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification System -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/loading-manager.js"></script>
+    <script src="js/youtube-config.js"></script>
+    <script src="js/tools-script.js"></script>
+</body>
+
+</html>

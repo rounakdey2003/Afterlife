@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Hub - Afterlife</title>
+    <link rel="stylesheet" href="css/base-theme.css">
+    <link rel="stylesheet" href="css/stream-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&family=Bebas+Neue:wght@400&family=Public+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo animate-glow">Afterlife</div>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading streams and videos...</p>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <header class="header glass">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">Afterlife</div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="stream.html" class="nav-link active">
+                    <i class="fas fa-video"></i>
+                    Stream
+                </a>
+                <a href="tools.html" class="nav-link">
+                    <i class="fas fa-tools"></i>
+                    Tools
+                </a>
+                <a href="store.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    Store
+                </a>
+                <a href="notice.html" class="nav-link">
+                    <i class="fas fa-bell"></i>
+                    Notices
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <i class="fas fa-blog"></i>
+                    Blog
+                </a>
+                <a href="admin-login.html" class="nav-link admin-link">
+                    <i class="fas fa-user-shield"></i>
+                    Admin
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Stream Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title animate-slide-up">Live Streams & Videos</h1>
+                    <p class="hero-subtitle animate-slide-up">Watch the latest MLBB gameplay, tutorials, and live streams</p>
+
+                    <div class="stream-stats animate-fade-in">
+                        <div class="stat-item glass-card">
+                            <span class="stat-number" id="totalVideos">25+</span>
+                            <span class="stat-label">Videos</span>
+                        </div>
+                        <div class="stat-item glass-card">
+                            <span class="stat-number" id="totalViews">150K+</span>
+                            <span class="stat-label">Total Views</span>
+                        </div>
+                        <div class="stat-item glass-card">
+                            <span class="stat-number" id="subscribers">2.5K+</span>
+                            <span class="stat-label">Subscribers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-bar glass-card">
+                    <div class="filter-group">
+                        <label for="sortSelect"><i class="fas fa-sort"></i> Sort by:</label>
+                        <select id="sortSelect" class="filter-select">
+                            <option value="date">Latest</option>
+                            <option value="views">Most Viewed</option>
+                            <option value="duration">Duration</option>
+                            <option value="title">Title A-Z</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="categorySelect"><i class="fas fa-filter"></i> Category:</label>
+                        <select id="categorySelect" class="filter-select">
+                            <option value="all">All Videos</option>
+                            <option value="gaming">Gaming</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="education">Tutorials</option>
+                            <option value="livestream">Live Streams</option>
+                        </select>
+                    </div>
+                    
+                    <div class="search-group">
+                        <input type="text" id="searchInput" placeholder="Search videos..." class="search-input">
+                        <button id="searchBtn" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="section-divider">
+
+        <!-- Featured Stream Section -->
+        <section class="featured-stream" id="featuredSection">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title animate-slide-up">
+                        <span>
+                            <i class="fas fa-star"></i>
+                            Featured Stream
+                        </span>
+                    </h2>
+                </div>
+                <div class="featured-player glass-card animate-scale-in" id="featuredPlayer">
+                    <div class="featured-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <p>Latest featured content will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="section-divider">
+
+        <!-- Videos Grid Section -->
+        <section class="videos-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title animate-slide-up">
+                        <span>
+                            <i class="fas fa-video"></i>
+                            Latest Videos
+                        </span>
+                    </h2>
+                    <div class="view-toggle">
+                        <button id="gridView" class="view-btn active">
+                            <i class="fas fa-th"></i>
+                            Grid
+                        </button>
+                        <button id="listView" class="view-btn">
+                            <i class="fas fa-list"></i>
+                            List
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="videos-grid animate-fade-in" id="videosGrid">
+                    <!-- Videos will be loaded here -->
+                </div>
+
+                <div class="load-more-container">
+                    <button id="loadMoreBtn" class="cta-button cta-secondary" style="display: none;">
+                        <i class="fas fa-plus"></i>
+                        Load More Videos
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contacts">Contacts</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                        <li><a href="https://discord.gg/cqPEdtTRnH" target="_blank">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@Afterlife_AL/streams" target="_blank">Youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Afterlife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification System -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/loading-manager.js"></script>
+    <script src="js/youtube-config.js"></script>
+    <script src="js/stream-script.js"></script>
+</body>
+
+</html>
