@@ -119,63 +119,6 @@
     text-transform: uppercase;
 }
 
-/* Store Item Skeleton */
-.store-item-skeleton {
-    border: var(--border-width) solid var(--black);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    background: var(--white);
-}
-
-.store-item-skeleton .skeleton-image {
-    width: 100%;
-    height: 200px;
-    position: relative;
-}
-
-.store-item-skeleton .skeleton-content {
-    padding: 1.25rem;
-}
-
-.store-item-skeleton .skeleton-category {
-    width: 80px;
-    height: 14px;
-    margin-bottom: 0.5rem;
-}
-
-.store-item-skeleton .skeleton-title {
-    width: 70%;
-    height: 20px;
-    margin-bottom: 0.75rem;
-}
-
-.store-item-skeleton .skeleton-price-container {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.store-item-skeleton .skeleton-original-price {
-    width: 60px;
-    height: 16px;
-}
-
-.store-item-skeleton .skeleton-discounted-price {
-    width: 70px;
-    height: 18px;
-}
-
-.store-item-skeleton .skeleton-discount {
-    width: 50px;
-    height: 18px;
-}
-
-.store-item-skeleton .skeleton-status {
-    width: 100px;
-    height: 16px;
-}
-
 /* Blog container styles for store page integration */
 .blog-container {
     margin-top: 100px;
@@ -348,50 +291,6 @@
         padding: 0.15rem 0.5rem;
     }
     
-    .store-item-skeleton .skeleton-content {
-        padding: 1rem;
-    }
-    
-    .store-item-skeleton .skeleton-image {
-        height: 160px;
-    }
-    
-    .store-item-skeleton .skeleton-category {
-        width: 70px;
-        height: 12px;
-    }
-    
-    .store-item-skeleton .skeleton-title {
-        width: 80%;
-        height: 18px;
-        margin-bottom: 0.625rem;
-    }
-    
-    .store-item-skeleton .skeleton-price-container {
-        gap: 0.5rem;
-        margin-bottom: 0.375rem;
-    }
-    
-    .store-item-skeleton .skeleton-original-price {
-        width: 50px;
-        height: 14px;
-    }
-    
-    .store-item-skeleton .skeleton-discounted-price {
-        width: 60px;
-        height: 16px;
-    }
-    
-    .store-item-skeleton .skeleton-discount {
-        width: 40px;
-        height: 16px;
-    }
-    
-    .store-item-skeleton .skeleton-status {
-        width: 80px;
-        height: 14px;
-    }
-    
     .blog-container {
         margin-top: 80px;
         padding: 1rem;
@@ -453,14 +352,6 @@
     .timeline-date {
         font-size: 0.6rem;
         padding: 0.125rem 0.375rem;
-    }
-    
-    .store-item-skeleton .skeleton-content {
-        padding: 0.875rem;
-    }
-    
-    .store-item-skeleton .skeleton-image {
-        height: 140px;
     }
     
     .blog-container {

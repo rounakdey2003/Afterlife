@@ -572,22 +572,7 @@
     text-transform: uppercase;
 }
 
-/* Legacy styles that might still be referenced */
-.blog-main {
-    max-width: 800px;
-    margin: 0 auto;
-    background: var(--white);
-    border: var(--border-width) solid var(--black);
-    border-radius: var(--border-radius);
-    padding: 3rem;
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black);
-    transition: all var(--transition-speed) ease;
-}
 
-.blog-main:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0 var(--black);
-}
 
 .coming-soon-content {
     text-align: center;

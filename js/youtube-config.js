@@ -1,7 +1,12 @@
 const YOUTUBE_CONFIG = {
-    // Secure configuration - no exposed API keys
-    API_KEY: '', // Removed for security - handled by backend
-    CHANNEL_ID: '', // Removed for security - handled by backend
+    // Development configuration - for admin mode local testing
+    // In production, these are handled by backend/Netlify functions
+    API_KEY: (window && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) 
+        ? 'AIzaSyDOfMa_fXXby2gAHiqy8TMXALaF9v_nyNk' 
+        : '', // Empty for production - handled by backend
+    CHANNEL_ID: (window && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) 
+        ? 'UCAlaNcIETblKsMFIm42W0Ow' 
+        : '', // Empty for production - handled by backend
     BASE_URL: (window && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) 
         ? '/api/youtube' 
         : '/.netlify/functions', // Use Netlify Functions for deployed version

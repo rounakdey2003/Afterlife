@@ -44,9 +44,15 @@ exports.handler = async (event, context) => {
         const queryParams = event.queryStringParameters || {};
         const maxResults = queryParams.maxResults || 20;
         const order = queryParams.order || 'date';
+        const pageToken = queryParams.pageToken || '';
 
         // Search for videos
-        const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet,id&channelId=${CHANNEL_ID}&maxResults=${maxResults}&order=${order}&type=video&key=${API_KEY}`;
+        let searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet,id&channelId=${CHANNEL_ID}&maxResults=${maxResults}&order=${order}&type=video&key=${API_KEY}`;
+        
+        // Add pageToken if provided for pagination
+        if (pageToken) {
+            searchUrl += `&pageToken=${pageToken}`;
+        }
         
         const searchResponse = await fetch(searchUrl);
         

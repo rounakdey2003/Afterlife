@@ -296,8 +296,6 @@ p, span, div {
     font-weight: 500;
 }
 
-.text-bold { font-weight: 700; }
-.text-extra-bold { font-weight: 800; }
 .text-black { font-weight: 900; }
 
 /* ===== CONTAINER & LAYOUT ===== */
@@ -437,29 +435,7 @@ p, span, div {
     color: var(--button-text-dark);
 }
 
-/* Admin button - legacy support */
-.admin-btn {
-    padding: 0.75rem 1.5rem;
-    background: var(--accent);
-    color: var(--white);
-    border: var(--border-width) solid var(--black);
-    border-radius: var(--border-radius);
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all var(--transition-speed) ease;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
 
-.admin-btn:hover,
-.admin-btn.active {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--black);
-}
 
 .mobile-menu-btn {
     display: none;

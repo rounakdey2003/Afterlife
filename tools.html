@@ -113,7 +113,6 @@
                 
                 <div class="tools-grid animate-fade-in">
                     <div class="tool-card" style="position: relative;">
-                        <div class="access-indicator" id="giveawayAccess">Public</div>
                         <div class="tool-icon">
                             <i class="fas fa-gift"></i>
                         </div>
@@ -133,8 +132,7 @@
                         </div>
                     </div>
 
-                    <div class="tool-card" style="position: relative;">
-                        <div class="access-indicator" id="analyticsAccess">Public</div>
+                    <div class="tool-card">
                         <div class="tool-icon">
                             <i class="fas fa-chart-line"></i>
                         </div>
@@ -146,32 +144,23 @@
                                 <span class="feature-tag">Growth Tracking</span>
                                 <span class="feature-tag">Engagement Analysis</span>
                             </div>
-                            <div class="tool-status status-available">Available</div>
-                            <button class="tool-btn" onclick="showAnalyticsTool()">
-                                <i class="fas fa-chart-line"></i>
-                                Launch Tool
-                            </button>
+                            <div class="tool-status status-coming-soon">Coming Soon</div>
                         </div>
                     </div>
 
-                    <div class="tool-card" style="position: relative;">
-                        <div class="access-indicator" id="communityAccess">Public</div>
+                    <div class="tool-card">
                         <div class="tool-icon">
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="tool-content">
                             <h3>Community Manager</h3>
-                            <p>Manage your community interactions, moderate comments, and track engagement patterns.</p>
+                            <p>Streamline your community management with advanced moderation tools, automated responses, and detailed engagement analytics to build stronger relationships with your audience.</p>
                             <div class="tool-features">
                                 <span class="feature-tag">Comment Management</span>
                                 <span class="feature-tag">Moderation</span>
                                 <span class="feature-tag">Auto-Responses</span>
                             </div>
-                            <div class="tool-status status-available">Available</div>
-                            <button class="tool-btn" onclick="showCommunityTool()">
-                                <i class="fas fa-users"></i>
-                                Launch Tool
-                            </button>
+                            <div class="tool-status status-coming-soon">Coming Soon</div>
                         </div>
                     </div>
 
@@ -334,54 +323,283 @@
 
     <!-- Giveaway Tool Modal -->
     <div id="giveawayModal" class="tool-modal">
-        <div class="modal-content">
+        <div class="modal-content giveaway-redesign">
             <div class="modal-header">
-                <h2><i class="fas fa-gift"></i> Loyal Subscriber Giveaway</h2>
+                <h2><i class="fas fa-gift"></i> Smart Giveaway Manager</h2>
                 <button class="modal-close" onclick="hideGiveawayTool()">&times;</button>
             </div>
+            
             <div class="modal-body">
-                <div class="giveaway-controls">
-                    <div class="control-group">
-                        <label for="giveawayCount">Number of Winners:</label>
-                        <input type="number" id="giveawayCount" value="5" min="1" max="50">
+                <!-- Progress Steps -->
+                <div class="giveaway-progress">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-circle">1</div>
+                        <span>Setup</span>
                     </div>
-                    <div class="control-group">
-                        <label for="loyaltyThreshold">Minimum Loyalty Score:</label>
-                        <select id="loyaltyThreshold">
-                            <option value="60">60% - Active Subscribers</option>
-                            <option value="75" selected>75% - Loyal Subscribers</option>
-                            <option value="85">85% - Super Loyal</option>
-                            <option value="95">95% - Ultra Loyal</option>
-                        </select>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-circle">2</div>
+                        <span>Criteria</span>
                     </div>
-                    <div class="control-group">
-                        <label for="engagementPeriod">Analysis Period:</label>
-                        <select id="engagementPeriod">
-                            <option value="30">Last 30 Days</option>
-                            <option value="60" selected>Last 60 Days</option>
-                            <option value="90">Last 90 Days</option>
-                        </select>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-circle">3</div>
+                        <span>Results</span>
                     </div>
-                    <button class="analyze-btn" onclick="analyzeSubscribers()">
-                        <i class="fas fa-search"></i>
-                        Analyze Subscribers
-                    </button>
                 </div>
-                
-                <div id="giveawayResults" class="results-section">
-                    <h3>Selected Winners</h3>
-                    <div id="winnersList" class="winners-list">
-                        <p class="no-data">Click "Analyze Subscribers" to find eligible winners</p>
+
+                <!-- Step 1: Basic Setup -->
+                <div class="giveaway-step active" id="step-1">
+                    <div class="step-header">
+                        <h3><i class="fas fa-cog"></i> Giveaway Setup</h3>
+                        <p>Configure your giveaway parameters</p>
                     </div>
-                    <div class="giveaway-actions">
-                        <button class="export-btn" onclick="exportWinners()">
-                            <i class="fas fa-download"></i>
-                            Export Winners
+                    
+                    <div class="setup-grid">
+                        <div class="setup-card">
+                            <div class="card-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="card-content">
+                                <label for="giveawayCount">Number of Winners</label>
+                                <div class="input-group">
+                                    <input type="number" id="giveawayCount" value="5" min="1" max="50">
+                                    <span class="input-suffix">winners</span>
+                                </div>
+                                <small>Choose how many subscribers will win</small>
+                            </div>
+                        </div>
+
+                        <div class="setup-card">
+                            <div class="card-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="card-content">
+                                <label for="engagementPeriod">Analysis Period</label>
+                                <select id="engagementPeriod" class="modern-select">
+                                    <option value="30">Last 30 Days</option>
+                                    <option value="60" selected>Last 60 Days</option>
+                                    <option value="90">Last 90 Days</option>
+                                    <option value="180">Last 6 Months</option>
+                                </select>
+                                <small>Period to analyze subscriber engagement</small>
+                            </div>
+                        </div>
+
+                        <div class="setup-card">
+                            <div class="card-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="card-content">
+                                <label for="loyaltyThreshold">Loyalty Level</label>
+                                <select id="loyaltyThreshold" class="modern-select">
+                                    <option value="50">50% - Active Members</option>
+                                    <option value="65">65% - Engaged Fans</option>
+                                    <option value="75" selected>75% - Loyal Subscribers</option>
+                                    <option value="85">85% - Super Fans</option>
+                                    <option value="95">95% - Ultra Loyal</option>
+                                </select>
+                                <small>Minimum loyalty score required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="next-btn" onclick="nextStep(2)">
+                            <span>Configure Criteria</span>
+                            <i class="fas fa-arrow-right"></i>
                         </button>
-                        <button class="rerun-btn" onclick="rerunGiveaway()">
-                            <i class="fas fa-redo"></i>
-                            Run Again
+                    </div>
+                </div>
+
+                <!-- Step 2: Loyalty Criteria -->
+                <div class="giveaway-step" id="step-2">
+                    <div class="step-header">
+                        <h3><i class="fas fa-sliders-h"></i> Loyalty Criteria</h3>
+                        <p>Customize how loyalty is calculated</p>
+                    </div>
+
+                    <div class="loyalty-factors-container">
+                        <div class="loyalty-factors-box">
+                            <div class="factors-header">
+                                <h4>Select Loyalty Factors</h4>
+                                <div class="quick-actions">
+                                    <button type="button" class="quick-btn" onclick="selectRecommendedFactors()">
+                                        <i class="fas fa-star"></i> Recommended
+                                    </button>
+                                    <button type="button" class="quick-btn" onclick="selectAllFactors()">
+                                        <i class="fas fa-check-square"></i> All
+                                    </button>
+                                    <button type="button" class="quick-btn" onclick="deselectAllFactors()">
+                                        <i class="fas fa-square"></i> None
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="factors-grid">
+                            <div class="factor-item">
+                                <input type="checkbox" id="factor-video-engagement" checked>
+                                <label for="factor-video-engagement">
+                                    <i class="fas fa-video"></i>
+                                    <div class="factor-content">
+                                        <span class="factor-name">Video Engagement <span class="factor-weight">(30 points)</span></span>
+                                        <small>Comments across multiple videos</small>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="factor-item">
+                                <input type="checkbox" id="factor-comment-quality" checked>
+                                <label for="factor-comment-quality">
+                                    <i class="fas fa-comment-dots"></i>
+                                    <div class="factor-content">
+                                        <span class="factor-name">Comment Quality <span class="factor-weight">(25 points)</span></span>
+                                        <small>Thoughtful, detailed comments</small>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="factor-item">
+                                <input type="checkbox" id="factor-community-appreciation" checked>
+                                <label for="factor-community-appreciation">
+                                    <i class="fas fa-heart"></i>
+                                    <div class="factor-content">
+                                        <span class="factor-name">Community Appreciation <span class="factor-weight">(20 points)</span></span>
+                                        <small>Likes received on comments</small>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="factor-item">
+                                <input type="checkbox" id="factor-consistency" checked>
+                                <label for="factor-consistency">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <div class="factor-content">
+                                        <span class="factor-name">Consistency <span class="factor-weight">(15 points)</span></span>
+                                        <small>Regular commenting frequency</small>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="factor-item">
+                                <input type="checkbox" id="factor-longevity" checked>
+                                <label for="factor-longevity">
+                                    <i class="fas fa-clock"></i>
+                                    <div class="factor-content">
+                                        <span class="factor-name">Longevity <span class="factor-weight">(10 points)</span></span>
+                                        <small>Long-time follower status</small>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="factor-item">
+                                <input type="checkbox" id="factor-engagement-diversity">
+                                <label for="factor-engagement-diversity">
+                                    <i class="fas fa-share-alt"></i>
+                                    <div class="factor-content">
+                                        <span class="factor-name">Engagement Diversity <span class="factor-weight">(15 points)</span></span>
+                                        <small>Likes, replies, and mentions</small>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="factor-item">
+                                <input type="checkbox" id="factor-early-engagement">
+                                <label for="factor-early-engagement">
+                                    <i class="fas fa-bolt"></i>
+                                    <div class="factor-content">
+                                        <span class="factor-name">Early Engagement <span class="factor-weight">(10 points)</span></span>
+                                        <small>Quick to comment on new videos</small>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="factor-item">
+                                <input type="checkbox" id="factor-positive-sentiment">
+                                <label for="factor-positive-sentiment">
+                                    <i class="fas fa-smile"></i>
+                                    <div class="factor-content">
+                                        <span class="factor-name">Positive Sentiment <span class="factor-weight">(10 points)</span></span>
+                                        <small>Supportive and positive comments</small>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="factors-summary">
+                            <div class="total-points-display">
+                                <span class="points-label">Total Possible Points:</span>
+                                <span class="points-value" id="totalPoints">125</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="back-btn" onclick="previousStep(1)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Back to Setup</span>
                         </button>
+                        <button class="analyze-btn" onclick="analyzeSubscribers()">
+                            <i class="fas fa-rocket"></i>
+                            <span>Find Winners</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Results -->
+                <div class="giveaway-step" id="step-3">
+                    <div class="step-header">
+                        <h3><i class="fas fa-trophy"></i> Giveaway Results</h3>
+                        <p>Your selected winners based on loyalty analysis</p>
+                    </div>
+
+                    <div class="results-container">
+                        <div class="results-header">
+                            <div class="results-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="analyzedCount">0</span>
+                                    <span class="stat-label">Analyzed</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="eligibleCount">0</span>
+                                    <span class="stat-label">Eligible</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="selectedCount">0</span>
+                                    <span class="stat-label">Selected</span>
+                                </div>
+                            </div>
+                            <div class="results-actions">
+                                <button class="action-btn secondary" onclick="rerunGiveaway()">
+                                    <i class="fas fa-redo"></i>
+                                    Run Again
+                                </button>
+                                <button class="action-btn primary" onclick="exportWinners()">
+                                    <i class="fas fa-download"></i>
+                                    Export Winners
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="giveawayResults" class="winners-section">
+                            <div id="winnersList" class="winners-grid">
+                                <div class="no-results">
+                                    <i class="fas fa-search"></i>
+                                    <h4>Ready to Find Winners</h4>
+                                    <p>Complete the setup and criteria steps, then click "Find Winners" to analyze your subscribers.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button class="back-btn" onclick="previousStep(2)">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Back to Criteria</span>
+                            </button>
+                            <button class="restart-btn" onclick="restartGiveaway()">
+                                <i class="fas fa-plus"></i>
+                                <span>New Giveaway</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -390,118 +608,56 @@
 
     <!-- Analytics Tool Modal -->
     <div id="analyticsModal" class="tool-modal">
-        <div class="modal-content analytics-modal">
+        <div class="modal-content analytics-redesign">
             <div class="modal-header">
-                <h2><i class="fas fa-chart-line"></i> Channel Analytics</h2>
+                <h2><i class="fas fa-chart-bar"></i> Channel Analytics Dashboard</h2>
                 <button class="modal-close" onclick="hideAnalyticsTool()">&times;</button>
             </div>
+            
             <div class="modal-body">
-                <div class="analytics-tabs">
-                    <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
-                    <button class="tab-btn" onclick="switchTab('videos')">Videos</button>
-                    <button class="tab-btn" onclick="switchTab('audience')">Audience</button>
-                    <button class="tab-btn" onclick="switchTab('engagement')">Engagement</button>
-                </div>
-                
-                <div id="overviewTab" class="tab-content active">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h3>Total Views</h3>
-                            <div class="stat-value" id="totalViews">Loading...</div>
-                            <div class="stat-change positive">+12.5%</div>
+                <div class="coming-soon-container">
+                    <div class="coming-soon-content">
+                        <div class="coming-soon-icon">
+                            <i class="fas fa-rocket"></i>
                         </div>
-                        <div class="stat-card">
-                            <h3>Subscribers</h3>
-                            <div class="stat-value" id="subscriberCount">Loading...</div>
-                            <div class="stat-change positive">+8.3%</div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Watch Time (Hours)</h3>
-                            <div class="stat-value" id="watchTime">Loading...</div>
-                            <div class="stat-change positive">+15.2%</div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Engagement Rate</h3>
-                            <div class="stat-value" id="engagementRate">Loading...</div>
-                            <div class="stat-change negative">-2.1%</div>
-                        </div>
-                    </div>
-                    
-                    <div class="chart-container">
-                        <canvas id="viewsChart" width="800" height="400"></canvas>
-                    </div>
-                </div>
-                
-                <div id="videosTab" class="tab-content">
-                    <div class="videos-controls">
-                        <select id="videosPeriod">
-                            <option value="7">Last 7 Days</option>
-                            <option value="30" selected>Last 30 Days</option>
-                            <option value="90">Last 90 Days</option>
-                        </select>
-                        <button class="refresh-btn" onclick="refreshAnalytics()">
-                            <i class="fas fa-sync"></i>
-                            Refresh
-                        </button>
-                    </div>
-                    <div id="videosList" class="videos-list">
-                        <div class="loading">Loading top performing videos...</div>
-                    </div>
-                </div>
-                
-                <div id="audienceTab" class="tab-content">
-                    <div class="audience-metrics">
-                        <h3>Audience Demographics</h3>
-                        <div id="audienceCharts" class="charts-grid">
-                            <div class="chart-item">
-                                <h4>Age Groups</h4>
-                                <canvas id="ageChart" width="300" height="200"></canvas>
+                        <h2>Coming Soon!</h2>
+                        <p>We're working hard to bring you an amazing analytics dashboard with:</p>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Real-time performance metrics</span>
                             </div>
-                            <div class="chart-item">
-                                <h4>Geography</h4>
-                                <canvas id="geoChart" width="300" height="200"></canvas>
+                            <div class="feature-item">
+                                <i class="fas fa-users"></i>
+                                <span>Detailed audience demographics</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-video"></i>
+                                <span>Content performance analysis</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>AI-powered insights & recommendations</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-download"></i>
+                                <span>Export & scheduled reports</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div id="engagementTab" class="tab-content">
-                    <div class="engagement-metrics">
-                        <h3>Engagement Analysis</h3>
-                        <div class="engagement-stats">
-                            <div class="engagement-item">
-                                <span class="label">Likes per Video:</span>
-                                <span class="value" id="avgLikes">Loading...</span>
-                            </div>
-                            <div class="engagement-item">
-                                <span class="label">Comments per Video:</span>
-                                <span class="value" id="avgComments">Loading...</span>
-                            </div>
-                            <div class="engagement-item">
-                                <span class="label">Shares per Video:</span>
-                                <span class="value" id="avgShares">Loading...</span>
-                            </div>
+                        <div class="coming-soon-cta">
+                            <p>Stay tuned for updates!</p>
+                            <button class="notify-btn">
+                                <i class="fas fa-bell"></i>
+                                Notify Me When Ready
+                            </button>
                         </div>
                     </div>
-                </div>
-                
-                <div class="analytics-actions">
-                    <button class="export-btn" onclick="exportAnalytics('pdf')">
-                        <i class="fas fa-file-pdf"></i>
-                        Export PDF
-                    </button>
-                    <button class="export-btn" onclick="exportAnalytics('csv')">
-                        <i class="fas fa-file-csv"></i>
-                        Export CSV
-                    </button>
-                    <button class="schedule-btn" onclick="scheduleReport()">
-                        <i class="fas fa-calendar"></i>
-                        Schedule Report
-                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     <!-- Community Manager Modal -->
     <div id="communityModal" class="tool-modal">
@@ -511,142 +667,43 @@
                 <button class="modal-close" onclick="hideCommunityTool()">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="community-tabs">
-                    <button class="tab-btn active" onclick="switchCommunityTab('comments')">Comments</button>
-                    <button class="tab-btn" onclick="switchCommunityTab('moderation')">Moderation</button>
-                    <button class="tab-btn" onclick="switchCommunityTab('analytics')">Analytics</button>
-                    <button class="tab-btn" onclick="switchCommunityTab('settings')">Settings</button>
-                </div>
-                
-                <div id="commentsTab" class="tab-content active">
-                    <div class="comments-controls">
-                        <div class="search-filter">
-                            <input type="text" placeholder="Search comments..." id="commentSearch">
-                            <button onclick="searchComments()">
-                                <i class="fas fa-search"></i>
-                            </button>
+                <div class="coming-soon-container">
+                    <div class="coming-soon-content">
+                        <div class="coming-soon-icon">
+                            <i class="fas fa-rocket"></i>
                         </div>
-                        <select id="commentFilter" onchange="filterComments()">
-                            <option value="all">All Comments</option>
-                            <option value="recent">Recent</option>
-                            <option value="flagged">Flagged</option>
-                            <option value="pending">Pending Review</option>
-                        </select>
-                        <button class="refresh-btn" onclick="refreshCommunityData()">
-                            <i class="fas fa-sync"></i>
-                            Refresh
-                        </button>
-                    </div>
-                    <div id="commentsList" class="comments-list">
-                        <div class="loading">Loading recent comments...</div>
-                    </div>
-                </div>
-                
-                <div id="moderationTab" class="tab-content">
-                    <div class="moderation-queue">
-                        <h3>Moderation Queue</h3>
-                        <div class="queue-controls">
-                            <button class="auto-mod-btn" onclick="enableAutoModeration()">
+                        <h2>Coming Soon!</h2>
+                        <p>We're developing a powerful community management platform with:</p>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <i class="fas fa-comments"></i>
+                                <span>Advanced comment moderation</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Automated spam detection</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-heart"></i>
+                                <span>Engagement analytics</span>
+                            </div>
+                            <div class="feature-item">
                                 <i class="fas fa-robot"></i>
-                                Enable Auto-Moderation
-                            </button>
-                            <button class="bulk-action-btn" onclick="bulkModerateComments()">
-                                <i class="fas fa-check-double"></i>
-                                Bulk Actions
-                            </button>
-                        </div>
-                        <div id="queueList" class="queue-list">
-                            <div class="loading">Loading moderation queue...</div>
-                        </div>
-                    </div>
-                    
-                    <div class="moderation-settings">
-                        <h3>Auto-Moderation Rules</h3>
-                        <div class="rule-group">
-                            <label>
-                                <input type="checkbox" checked>
-                                Block spam comments
-                            </label>
-                            <label>
-                                <input type="checkbox" checked>
-                                Flag potentially offensive content
-                            </label>
-                            <label>
-                                <input type="checkbox">
-                                Auto-approve comments from subscribers
-                            </label>
-                        </div>
-                        <button class="save-btn" onclick="saveModerationSettings()">
-                            Save Settings
-                        </button>
-                    </div>
-                </div>
-                
-                <div id="analyticsTab" class="tab-content">
-                    <div class="community-analytics">
-                        <h3>Community Insights</h3>
-                        <div class="insights-grid">
-                            <div class="insight-card">
-                                <h4>Top Commenters</h4>
-                                <div id="topCommenters" class="commenters-list">
-                                    <div class="loading">Loading top commenters...</div>
-                                </div>
+                                <span>Smart auto-responses</span>
                             </div>
-                            <div class="insight-card">
-                                <h4>Engagement Trends</h4>
-                                <canvas id="engagementTrendChart" width="400" height="200"></canvas>
+                            <div class="feature-item">
+                                <i class="fas fa-users-cog"></i>
+                                <span>Community insights dashboard</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div id="settingsTab" class="tab-content">
-                    <div class="community-settings">
-                        <h3>Community Settings</h3>
-                        <div class="settings-group">
-                            <h4>Comment Filtering</h4>
-                            <label>
-                                <input type="checkbox" checked>
-                                Review comments before publishing
-                            </label>
-                            <label>
-                                <input type="checkbox">
-                                Block comments with links
-                            </label>
-                            <label>
-                                <input type="checkbox">
-                                Block potentially inappropriate comments
-                            </label>
-                        </div>
-                        
-                        <div class="settings-group">
-                            <h4>Notifications</h4>
-                            <label>
-                                <input type="checkbox" checked>
-                                Email notifications for flagged comments
-                            </label>
-                            <label>
-                                <input type="checkbox">
-                                Daily community digest
-                            </label>
-                        </div>
-                        
-                        <div class="settings-actions">
-                            <button class="save-btn" onclick="saveCommunitySettings()">
-                                Save Settings
-                            </button>
-                            <button class="reset-btn" onclick="resetCommunitySettings()">
-                                Reset to Defaults
+                        <div class="coming-soon-cta">
+                            <p>Stay tuned for updates!</p>
+                            <button class="notify-btn">
+                                <i class="fas fa-bell"></i>
+                                Notify Me When Ready
                             </button>
                         </div>
                     </div>
-                </div>
-                
-                <div class="community-actions">
-                    <button class="export-btn" onclick="exportCommunityReport()">
-                        <i class="fas fa-download"></i>
-                        Export Report
-                    </button>
                 </div>
             </div>
         </div>

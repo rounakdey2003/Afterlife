@@ -19,6 +19,9 @@ class StreamYouTubeAPI {
         this.currentFilter = 'all';
         this.currentSort = 'date';
         this.currentView = 'grid';
+        this.nextPageToken = null; // For pagination
+        this.totalResults = 0; // Track total available results
+        this.isLoading = false; // Prevent multiple simultaneous requests
         this.init();
     }
 
@@ -104,10 +107,13 @@ class StreamYouTubeAPI {
             const data = await response.json();
             
             if (data.items && data.items.length > 0) {
-                const videoIds = data.items.map(item => item.id.videoId).join(',');
-                const videoDetails = await this.loadVideoDetails(videoIds);
+                // The backend already includes statistics in the items, no need for separate API call
+                this.videosData = this.processVideoData(data.items);
                 
-                this.videosData = this.processVideoData(data.items, videoDetails);
+                // Store pagination information
+                this.nextPageToken = data.nextPageToken || null;
+                this.totalResults = data.pageInfo?.totalResults || data.items.length;
+                
                 await this.checkForLiveStreams();
                 
                 // Hide skeletons and show real content
@@ -130,8 +136,11 @@ class StreamYouTubeAPI {
 
     async loadVideoDetails(videoIds) {
         try {
+            const videosEndpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
+                ? `${this.baseUrl}/video-details` 
+                : `${this.baseUrl}/youtube-videos`;
             const response = await fetch(
-                `${this.baseUrl}/videos?part=statistics,contentDetails,liveStreamingDetails&id=${videoIds}&key=${this.apiKey}`
+                `${videosEndpoint}?part=statistics,contentDetails,liveStreamingDetails&id=${videoIds}`
             );
             
             if (!response.ok) {
@@ -141,39 +150,30 @@ class StreamYouTubeAPI {
             const data = await response.json();
             return data.items || [];
         } catch (error) {
+            console.warn('Failed to load video details:', error);
             return [];
         }
     }
 
     async checkForLiveStreams() {
         try {
-            const response = await fetch(
-                `${this.baseUrl}/search?part=snippet&channelId=${this.channelId}&eventType=live&type=video&key=${this.apiKey}`
-            );
-            
-            if (!response.ok) return;
-            
-            const data = await response.json();
-            
-            if (data.items && data.items.length > 0) {
-                const liveVideo = data.items[0];
-                this.setupFeaturedStream(liveVideo, true);
-            } else {
-
-                const featuredVideo = this.videosData[0];
-                if (featuredVideo) {
-                    this.setupFeaturedStream(featuredVideo, false);
-                }
+            // For now, since we don't have a live stream endpoint in our proxy,
+            // we'll just set up the first video as featured
+            const featuredVideo = this.videosData[0];
+            if (featuredVideo) {
+                this.setupFeaturedStream(featuredVideo, false);
             }
         } catch (error) {
             // Handle error silently
         }
     }
 
-    processVideoData(searchResults, videoDetails) {
-        return searchResults.map(video => {
-            const details = videoDetails.find(d => d.id === video.id.videoId);
-            const isLive = details?.liveStreamingDetails?.actualStartTime && !details?.liveStreamingDetails?.actualEndTime;
+    processVideoData(videoItems) {
+        return videoItems.map(video => {
+            // Statistics are already included in the video item from the backend
+            const statistics = video.statistics || {};
+            const contentDetails = video.contentDetails || {};
+            const isLive = contentDetails.liveStreamingDetails?.actualStartTime && !contentDetails.liveStreamingDetails?.actualEndTime;
             
             return {
                 id: video.id.videoId,
@@ -181,9 +181,9 @@ class StreamYouTubeAPI {
                 thumbnail: video.snippet.thumbnails.high?.url || video.snippet.thumbnails.medium?.url || video.snippet.thumbnails.default.url,
                 description: video.snippet.description,
                 publishedAt: video.snippet.publishedAt,
-                duration: isLive ? 'LIVE' : this.formatDuration(details?.contentDetails?.duration || 'PT0S'),
-                views: details?.statistics?.viewCount || '0',
-                likes: details?.statistics?.likeCount || '0',
+                duration: isLive ? 'LIVE' : this.formatDuration(contentDetails.duration || 'PT0S'),
+                views: statistics.viewCount || '0',
+                likes: statistics.likeCount || '0',
                 category: this.categorizeVideo(video.snippet.title, video.snippet.description),
                 isLive: isLive,
                 url: `https://www.youtube.com/watch?v=${video.id.videoId}`
@@ -307,16 +307,16 @@ class StreamYouTubeAPI {
             
             const featuredHTML = `
                 <div class="featured-video-player">
-                    <img src="${video.thumbnail || video.snippet.thumbnails.high?.url}" alt="${video.title || video.snippet.title}" loading="eager">
+                    <img src="${video.thumbnail || video.snippet?.thumbnails?.high?.url}" alt="${video.title || video.snippet?.title}" loading="eager">
                     <div class="featured-overlay">
                         <div class="featured-info">
-                            <h3>${video.title || video.snippet.title}</h3>
+                            <h3>${video.title || video.snippet?.title}</h3>
                             <div class="featured-meta">
                                 <span class="${isLive ? 'live-badge' : 'featured-badge'}">${isLive ? 'LIVE' : 'FEATURED'}</span>
                                 <span>${isLive ? `${this.formatNumber(video.views || '0')} watching` : `${this.formatNumber(video.views || '0')} views`}</span>
                             </div>
                         </div>
-                        <button class="featured-play-btn brutal-btn primary" onclick="window.open('${video.url || `https://www.youtube.com/watch?v=${video.id.videoId}`}', '_blank')">
+                        <button class="featured-play-btn brutal-btn primary" onclick="window.open('${video.url || `https://www.youtube.com/watch?v=${video.id?.videoId || video.id}`}', '_blank')">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M8 5V19L19 12L8 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -327,6 +327,8 @@ class StreamYouTubeAPI {
             `;
             
             featuredPlayer.innerHTML = featuredHTML;
+        } else {
+        
         }
     }
 
@@ -795,12 +797,18 @@ class StreamYouTubeAPI {
                 break;
         }
         
-        this.renderVideos(this.filterByCategory(sortedVideos));
+        const filteredVideos = this.filterByCategory(sortedVideos);
+        this.renderVideos(filteredVideos);
+        
+        // Update load more button visibility for filtered results
+        this.updateLoadMoreForFilters(filteredVideos);
     }
 
     searchVideos(query) {
         if (!query.trim()) {
-            this.renderVideos(this.filterByCategory(this.videosData));
+            const filteredVideos = this.filterByCategory(this.videosData);
+            this.renderVideos(filteredVideos);
+            this.updateLoadMoreForFilters(filteredVideos);
             return;
         }
         
@@ -808,7 +816,27 @@ class StreamYouTubeAPI {
             video.title.toLowerCase().includes(query.toLowerCase())
         );
         
-        this.renderVideos(this.filterByCategory(searchResults));
+        const filteredResults = this.filterByCategory(searchResults);
+        this.renderVideos(filteredResults);
+        this.updateLoadMoreForFilters(filteredResults);
+    }
+
+    updateLoadMoreForFilters(filteredVideos) {
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        if (loadMoreBtn) {
+            // If we're showing filtered results, hide load more unless we're showing all videos
+            if (this.currentFilter === 'all' && !document.getElementById('searchInput')?.value?.trim()) {
+                // Show load more only if there might be more videos to load
+                if (this.nextPageToken || this.videosData.length < this.totalResults) {
+                    loadMoreBtn.style.display = 'block';
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+            } else {
+                // Hide load more when filtering/searching
+                loadMoreBtn.style.display = 'none';
+            }
+        }
     }
 
     parseDuration(duration) {
@@ -831,24 +859,106 @@ class StreamYouTubeAPI {
 
     setupLoadMoreFeature() {
         const loadMoreBtn = document.getElementById('loadMoreBtn');
-        if (loadMoreBtn && this.videosData.length >= this.maxResults) {
-            loadMoreBtn.style.display = 'block';
-            loadMoreBtn.addEventListener('click', async () => {
-                await this.loadMoreVideos();
-            });
+        if (loadMoreBtn) {
+            // Show load more button if there's a next page token or if we have the maximum results
+            if (this.nextPageToken || (this.videosData.length >= this.maxResults && this.videosData.length < this.totalResults)) {
+                loadMoreBtn.style.display = 'block';
+                // Remove any existing event listeners to prevent duplicates
+                loadMoreBtn.replaceWith(loadMoreBtn.cloneNode(true));
+                const newLoadMoreBtn = document.getElementById('loadMoreBtn');
+                newLoadMoreBtn.addEventListener('click', async () => {
+                    await this.loadMoreVideos();
+                });
+            } else {
+                loadMoreBtn.style.display = 'none';
+            }
         }
     }
 
     async loadMoreVideos() {
-
+        // Prevent multiple simultaneous requests
+        if (this.isLoading) {
+            return;
+        }
+        
         const loadMoreBtn = document.getElementById('loadMoreBtn');
-        if (loadMoreBtn) {
-            loadMoreBtn.textContent = 'Loading...';
-            loadMoreBtn.disabled = true;
+        if (!loadMoreBtn) return;
+        
+        this.isLoading = true;
+        const originalText = loadMoreBtn.innerHTML;
+        loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+        loadMoreBtn.disabled = true;
+        
+        try {
+            const videosEndpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
+                ? `${this.baseUrl}/videos` 
+                : `${this.baseUrl}/youtube-videos`;
             
+            // Build the URL with pagination token if available
+            let url = `${videosEndpoint}?maxResults=${this.maxResults}&order=date`;
+            if (this.nextPageToken) {
+                url += `&pageToken=${this.nextPageToken}`;
+            }
+            
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.items && data.items.length > 0) {
+                // Process the new video data
+                const newVideosData = this.processVideoData(data.items);
+                
+                // Append new videos to existing ones
+                this.videosData = [...this.videosData, ...newVideosData];
+                
+                // Update pagination information
+                this.nextPageToken = data.nextPageToken || null;
+                this.totalResults = data.pageInfo?.totalResults || this.videosData.length;
+                
+                // Re-render all videos with the new data
+                this.renderVideos(this.filterByCategory(this.videosData));
+                
+                // Update load more button visibility
+                if (this.nextPageToken && this.videosData.length < this.totalResults) {
+                    loadMoreBtn.innerHTML = originalText;
+                    loadMoreBtn.disabled = false;
+                } else {
+                    loadMoreBtn.innerHTML = '<i class="fas fa-check"></i> All Videos Loaded';
+                    setTimeout(() => {
+                        loadMoreBtn.style.display = 'none';
+                    }, 2000);
+                }
+                
+                // Show notification of new videos loaded
+                this.showNotification(`Loaded ${newVideosData.length} more videos ${this.getSVGIcon('video')}`, 'success');
+                
+            } else {
+                // No more videos available
+                loadMoreBtn.innerHTML = '<i class="fas fa-check"></i> All Videos Loaded';
+                setTimeout(() => {
+                    loadMoreBtn.style.display = 'none';
+                }, 2000);
+                
+                this.showNotification('No more videos available', 'info');
+            }
+        } catch (error) {
+            console.error('Error loading more videos:', error);
+            loadMoreBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Failed to Load';
+            
+            // Show error notification
+            this.showNotification('Failed to load more videos. Please try again.', 'error');
+            
+            // Restore original button after 3 seconds
             setTimeout(() => {
-                loadMoreBtn.style.display = 'none';
-            }, 1000);
+                loadMoreBtn.innerHTML = originalText;
+                loadMoreBtn.disabled = false;
+            }, 3000);
+        } finally {
+            this.isLoading = false;
         }
     }
 
@@ -867,6 +977,82 @@ class StreamYouTubeAPI {
                 card.classList.remove('brutal-video-hover');
             });
         });
+    }
+
+    showNotification(message, type = 'info') {
+        const notificationContainer = document.getElementById('notificationContainer');
+        if (!notificationContainer) return;
+        
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                <span>${message}</span>
+                <button class="notification-close" aria-label="Close notification">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="notification-progress"></div>
+        `;
+        
+        notificationContainer.appendChild(notification);
+        
+        const progressBar = notification.querySelector('.notification-progress');
+        
+        // Add click handler for close button
+        const closeBtn = notification.querySelector('.notification-close');
+        const closeNotification = () => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 400);
+        };
+        
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeNotification();
+        });
+        
+        // Close on notification click
+        notification.addEventListener('click', closeNotification);
+        
+        // Trigger animation
+        setTimeout(() => {
+            notification.classList.add('show');
+            // Start progress bar animation
+            if (progressBar) {
+                progressBar.style.animation = 'progress-bar 5s linear forwards';
+            }
+        }, 100);
+        
+        // Auto-remove notification after 5 seconds
+        setTimeout(() => {
+            if (notification.parentNode && notification.classList.contains('show')) {
+                closeNotification();
+            }
+        }, 5000);
+    }
+
+    // Helper function to get SVG icons
+    getSVGIcon(name) {
+        const icons = {
+            gamepad: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-left: 4px; vertical-align: middle;">
+                <path d="M6 10H10M8 8V12M14 11L16 13L20 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 4H18C19.1046 4 20 4.89543 20 6V14C20 17.3137 17.3137 20 14 20H10C6.68629 20 4 17.3137 4 14V6C4 4.89543 4.89543 4 6 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`,
+            video: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-left: 4px; vertical-align: middle;">
+                <path d="M22 8L16 12L22 16V8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="2" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`,
+            play: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-left: 4px; vertical-align: middle;">
+                <polygon points="5,3 19,12 5,21" stroke="currentColor" stroke-width="2" fill="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`
+        };
+        
+        return icons[name] || '';
     }
 }
 
@@ -955,7 +1141,9 @@ class NeoBrutalStreamAnimations {
                 this.animateFilterChange();
                 if (window.streamAPI) {
                     window.streamAPI.currentFilter = e.target.value;
-                    window.streamAPI.renderVideos(window.streamAPI.filterByCategory(window.streamAPI.videosData));
+                    const filteredVideos = window.streamAPI.filterByCategory(window.streamAPI.videosData);
+                    window.streamAPI.renderVideos(filteredVideos);
+                    window.streamAPI.updateLoadMoreForFilters(filteredVideos);
                 }
             });
         }
@@ -1000,6 +1188,9 @@ class NeoBrutalStreamAnimations {
         if (searchBtn) {
             searchBtn.addEventListener('click', () => {
                 this.addSearchAnimation();
+                if (searchInput && window.streamAPI) {
+                    window.streamAPI.searchVideos(searchInput.value);
+                }
             });
         }
     }
@@ -1504,19 +1695,19 @@ const streamAnimationsCSS = `
 }
 
 .featured-video-player {
-    position: relative;
-    aspect-ratio: 16/9;
-    max-width: 800px;
-    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
-    border: 3px solid var(--black);
-    box-shadow: 6px 6px 0px var(--black);
 }
 
 .featured-video-player img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .featured-overlay {
