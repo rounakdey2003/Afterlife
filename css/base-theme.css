@@ -1274,7 +1274,7 @@ p, span, div {
 }
 
 .videos-grid {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 /* ===== RESPONSIVE GRID ADJUSTMENTS ===== */
@@ -1285,6 +1285,13 @@ p, span, div {
     .tools-grid,
     .videos-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .videos-grid {
+        grid-template-columns: 1fr !important;
         gap: 1rem;
     }
 }

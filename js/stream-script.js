@@ -445,117 +445,9 @@ class StreamYouTubeAPI {
     }
 
     handleAPIError() {
-        
+        console.warn('API Error: YouTube service temporarily unavailable');
         this.hideLoadingScreen();
         this.showAPIErrorBox();
-    }
-
-    getFallbackFeaturedContent() {
-        return `
-            <div class="featured-video-player">
-                <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Epic MLBB Rank Push - Road to Mythic" loading="eager">
-                <div class="featured-overlay">
-                    <div class="featured-info">
-                        <h3>Epic MLBB Rank Push - Road to Mythic</h3>
-                        <div class="featured-meta">
-                            <span class="featured-badge">FEATURED</span>
-                            <span>12.5K views</span>
-                        </div>
-                    </div>
-                    <button class="featured-play-btn brutal-btn primary" onclick="window.open('https://www.youtube.com/@Afterlife_AL', '_blank')">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 5V19L19 12L8 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Watch Now
-                    </button>
-                </div>
-            </div>
-        `;
-    }
-
-    getFallbackVideosContent() {
-        const fallbackVideos = [
-            {
-                title: "Epic MLBB Rank Push - Road to Mythic",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "2:34:15",
-                views: "12500",
-                publishedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-                category: "gaming",
-                isLive: false
-            },
-            {
-                title: "LIVE: Morning Gaming Session",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "LIVE",
-                views: "847",
-                publishedAt: new Date().toISOString(),
-                category: "gaming",
-                isLive: true
-            },
-            {
-                title: "Mobile Legends Tutorial - Advanced Tips",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "15:42",
-                views: "8500",
-                publishedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-                category: "education",
-                isLive: false
-            },
-            {
-                title: "Mythic Rank Push Highlights",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "18:25",
-                views: "6200",
-                publishedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-                category: "gaming",
-                isLive: false
-            },
-            {
-                title: "Hero Guide: Advanced Strategies",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "12:33",
-                views: "9800",
-                publishedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-                category: "education",
-                isLive: false
-            },
-            {
-                title: "Community Tournament Finals",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "45:12",
-                views: "23400",
-                publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-                category: "entertainment",
-                isLive: false
-            }
-        ];
-
-        return fallbackVideos.map((video, index) => `
-            <div class="video-card" style="animation-delay: ${index * 0.1}s;">
-                <div class="video-thumbnail">
-                    <img src="${video.thumbnail}" alt="${video.title}" loading="lazy">
-                    <div class="video-duration ${video.isLive ? 'live' : ''}">${video.duration}</div>
-                    ${video.isLive ? '<div class="live-indicator-small">LIVE</div>' : ''}
-                    <div class="video-overlay">
-                        <button class="play-btn brutal-btn primary" onclick="window.open('https://www.youtube.com/@Afterlife_AL', '_blank')">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            ${video.isLive ? 'Visit Channel' : 'Visit Channel'}
-                        </button>
-                    </div>
-                </div>
-                <div class="video-info">
-                    <h3 class="video-title">${video.title}</h3>
-                    <div class="video-meta">
-                        <span class="video-views">${this.formatNumber(video.views)} ${video.isLive ? 'watching' : 'views'}</span>
-                        <span class="video-date">${this.formatDate(new Date(video.publishedAt))}</span>
-                        <span class="video-category">${video.category.toUpperCase()}</span>
-                    </div>
-                </div>
-            </div>
-        `).join('');
     }
 
     showAPIErrorBox() {
@@ -640,15 +532,15 @@ class StreamYouTubeAPI {
         const subscribers = document.getElementById('subscribers');
 
         if (totalVideos) {
-            totalVideos.textContent = '';
+            totalVideos.textContent = '--';
             totalVideos.parentElement.classList.add('stat-error');
         }
         if (totalViews) {
-            totalViews.textContent = '';
+            totalViews.textContent = '--';
             totalViews.parentElement.classList.add('stat-error');
         }
         if (subscribers) {
-            subscribers.textContent = '';
+            subscribers.textContent = '--';
             subscribers.parentElement.classList.add('stat-error');
         }
     }
@@ -698,78 +590,6 @@ class StreamYouTubeAPI {
                 window.open(`https://www.youtube.com/channel/${this.channelId}`, '_blank');
             });
         }
-    }
-
-    setupMockData() {
-
-        const mockVideos = [
-            {
-                id: 'mock1',
-                title: "Epic MLBB Rank Push - Road to Mythic",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "2:34:15",
-                views: "12500",
-                publishedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-                category: "gaming",
-                isLive: false,
-                url: 'https://www.youtube.com/@Afterlife_AL'
-            },
-            {
-                id: 'mock2',
-                title: "LIVE: Morning Gaming Session", 
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "LIVE",
-                views: "847",
-                publishedAt: new Date().toISOString(),
-                category: "gaming",
-                isLive: true,
-                url: 'https://www.youtube.com/@Afterlife_AL'
-            },
-            {
-                id: 'mock3',
-                title: "Mythic Rank Push Highlights",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "18:25",
-                views: "6200",
-                publishedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-                category: "gaming", 
-                isLive: false,
-                url: 'https://www.youtube.com/@Afterlife_AL'
-            },
-            {
-                id: 'mock4',
-                title: "Hero Guide: Advanced Strategies",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "12:33",
-                views: "9800", 
-                publishedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-                category: "education",
-                isLive: false,
-                url: 'https://www.youtube.com/@Afterlife_AL'
-            },
-            {
-                id: 'mock5',
-                title: "Community Tournament Finals",
-                thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-                duration: "45:12",
-                views: "23400",
-                publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-                category: "entertainment",
-                isLive: false,
-                url: 'https://www.youtube.com/@Afterlife_AL'
-            }
-        ];
-
-        this.videosData = mockVideos;
-        this.renderVideos(mockVideos);
-
-        const totalVideos = document.getElementById('totalVideos');
-        const totalViews = document.getElementById('totalViews');
-        const subscribers = document.getElementById('subscribers');
-
-        if (totalVideos) this.animateCounter(totalVideos, 25);
-        if (totalViews) this.animateCounter(totalViews, 150000);
-        if (subscribers) this.animateCounter(subscribers, 2500);
     }
 
     filterByCategory(videos) {
@@ -1486,9 +1306,11 @@ const streamAnimationsCSS = `
 
 .videos-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .videos-grid.list-view {
@@ -1929,24 +1751,8 @@ const streamAnimationsCSS = `
 }
 
 .stat-error {
-    opacity: 0.5;
+    opacity: 0.6;
     position: relative;
-}
-
-.stat-error::after {
-    content: 'unavailable';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 0.8rem;
-    color: var(--danger);
-    text-transform: uppercase;
-    font-weight: 600;
-    background: var(--bg-secondary);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    border: 1px solid var(--danger);
 }
 
 .error-state {
@@ -2002,7 +1808,40 @@ const streamAnimationsCSS = `
     }
     
     .videos-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .video-card {
+        margin: 0;
+        border: 2px solid var(--black);
+        box-shadow: 4px 4px 0px var(--black);
+    }
+    
+    .video-card:hover {
+        transform: translate(-1px, -1px);
+        box-shadow: 5px 5px 0px var(--black);
+    }
+    
+    .video-thumbnail {
+        aspect-ratio: 16/9;
+    }
+    
+    .video-info {
+        padding: 1rem;
+    }
+    
+    .video-title {
+        font-size: 1rem;
+        line-height: 1.4;
+        margin-bottom: 0.75rem;
+    }
+    
+    .video-meta {
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        font-size: 0.8rem;
     }
     
     .video-card.list-view {
@@ -2010,6 +1849,11 @@ const streamAnimationsCSS = `
     }
     
     .video-card.list-view .video-thumbnail {
+        flex: none;
+        aspect-ratio: 16/9;
+    }
+    
+    .video-card.list-view .video-info {
         flex: none;
     }
     
@@ -2045,6 +1889,123 @@ const streamAnimationsCSS = `
     
     .stream-stats {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .videos-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .video-card {
+        min-width: unset;
+        width: 100%;
+        border: 2px solid var(--black);
+        box-shadow: 3px 3px 0px var(--black);
+        margin-bottom: 0;
+    }
+    
+    .video-card:hover {
+        transform: translate(-1px, -1px);
+        box-shadow: 4px 4px 0px var(--black);
+    }
+    
+    .video-thumbnail {
+        aspect-ratio: 16/9;
+        height: auto;
+    }
+    
+    .video-thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    
+    .video-info {
+        padding: 0.875rem;
+    }
+    
+    .video-title {
+        font-size: 0.95rem;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+    
+    .video-meta {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        font-size: 0.75rem;
+        align-items: center;
+    }
+    
+    .video-category {
+        padding: 2px 4px;
+        font-size: 0.6rem;
+        border-radius: 2px;
+    }
+    
+    .video-duration {
+        bottom: 6px;
+        right: 6px;
+        padding: 3px 6px;
+        font-size: 0.7rem;
+        border-radius: 2px;
+    }
+    
+    .video-overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .video-card:active .video-overlay {
+        opacity: 1;
+    }
+    
+    .play-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+        gap: 0.375rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .videos-grid {
+        gap: 0.75rem;
+        margin-top: 0.75rem;
+    }
+    
+    .video-card {
+        border: 1px solid var(--black);
+        box-shadow: 2px 2px 0px var(--black);
+    }
+    
+    .video-card:hover,
+    .video-card:active {
+        transform: none;
+        box-shadow: 3px 3px 0px var(--black);
+    }
+
+    .video-info {
+        padding: 0.75rem;
+    }
+    
+    .video-title {
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
+    
+    .video-meta {
+        font-size: 0.7rem;
+        gap: 0.375rem;
+    }
+    
+    .video-category {
+        font-size: 0.55rem;
+        padding: 1px 3px;
     }
 }
 `;

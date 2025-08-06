@@ -102,7 +102,7 @@ class LoadingManager {
             sessionStorage.setItem('welcomeNotificationShown', 'true');
             
             setTimeout(() => {
-                window.notificationManager.success('Welcome to Afterlife! <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01-.01.05V22h12v-5.94-.01-.05L18 16l-4-4 4-3.99-.01-.01.01-.05V2H6zm10 16.5l-1 .5H9l-1-.5v-1l1-.5h6l1 .5v1zm0-15l-1-.5H9l-1 .5v1l1 .5h6l1-.5v-1z"/></svg>', 3000);
+                window.notificationManager.success('Welcome to Afterlife!', 3000);
             }, 500);
         }
     }
