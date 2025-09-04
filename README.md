@@ -86,3 +86,7 @@ This project is configured for deployment on Netlify and other hosting platforms
 ## License
 
 MIT License - see LICENSE file for details
+
+---
+
+**Made with ❤️ by [Rounak Dey](https://github.com/rounakdey2003)**
